@@ -25,33 +25,51 @@
     <Filter Include="Arquivos de Origem\core\types">
       <UniqueIdentifier>{f655f37b-6d73-48ea-bfce-088d99b174dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Arquivos de Origem\core\input">
+      <UniqueIdentifier>{53a899de-1cee-4a27-837f-ebbbc95c733f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Cabeçalho\core\OS">
+      <UniqueIdentifier>{7f0fc021-e0c0-4786-8c48-1a11dcb84aa1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Arquivos de Origem\core</Filter>
     </ClCompile>
+    <ClCompile Include="core\OS\input.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\types\types.h">
-      <Filter>Arquivos de Origem\core\types</Filter>
+      <Filter>Arquivos de Cabeçalho\core\types</Filter>
     </ClInclude>
-    <ClInclude Include="vec2.h">
-      <Filter>Arquivos de Origem\core\types</Filter>
+    <ClInclude Include="core\types\mat2.h">
+      <Filter>Arquivos de Cabeçalho\core\types</Filter>
     </ClInclude>
-    <ClInclude Include="vec3.h">
-      <Filter>Arquivos de Origem\core\types</Filter>
+    <ClInclude Include="core\types\mat3.h">
+      <Filter>Arquivos de Cabeçalho\core\types</Filter>
     </ClInclude>
-    <ClInclude Include="vec4.h">
-      <Filter>Arquivos de Origem\core\types</Filter>
+    <ClInclude Include="core\types\mat4.h">
+      <Filter>Arquivos de Cabeçalho\core\types</Filter>
     </ClInclude>
-    <ClInclude Include="mat2.h">
-      <Filter>Arquivos de Origem\core\types</Filter>
+    <ClInclude Include="core\types\vec2.h">
+      <Filter>Arquivos de Cabeçalho\core\types</Filter>
     </ClInclude>
-    <ClInclude Include="mat3.h">
-      <Filter>Arquivos de Origem\core\types</Filter>
+    <ClInclude Include="core\types\vec3.h">
+      <Filter>Arquivos de Cabeçalho\core\types</Filter>
     </ClInclude>
-    <ClInclude Include="mat4.h">
-      <Filter>Arquivos de Origem\core\types</Filter>
+    <ClInclude Include="core\types\vec4.h">
+      <Filter>Arquivos de Cabeçalho\core\types</Filter>
+    </ClInclude>
+    <ClInclude Include="OS.h">
+      <Filter>Arquivos de Cabeçalho\core\OS</Filter>
+    </ClInclude>
+    <ClInclude Include="core\OS\window.h">
+      <Filter>Arquivos de Cabeçalho\core\OS</Filter>
+    </ClInclude>
+    <ClInclude Include="core\OS\input.h">
+      <Filter>Arquivos de Cabeçalho\core\OS</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

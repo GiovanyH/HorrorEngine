@@ -127,16 +127,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="core\OS\input.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="core\OS\input.h" />
+    <ClInclude Include="core\OS\window.h" />
+    <ClInclude Include="core\types\mat2.h" />
+    <ClInclude Include="core\types\mat3.h" />
+    <ClInclude Include="core\types\mat4.h" />
     <ClInclude Include="core\types\types.h" />
-    <ClInclude Include="mat2.h" />
-    <ClInclude Include="mat3.h" />
-    <ClInclude Include="mat4.h" />
-    <ClInclude Include="vec2.h" />
-    <ClInclude Include="vec3.h" />
-    <ClInclude Include="vec4.h" />
+    <ClInclude Include="core\types\vec2.h" />
+    <ClInclude Include="core\types\vec3.h" />
+    <ClInclude Include="core\types\vec4.h" />
+    <ClInclude Include="OS.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
