@@ -44,6 +44,9 @@ class gioVec4
 		return r;
 	}
 
+	// get a struct with the values
+	struct { float x; float y; float z; float w; } GetStruct() { return { x, y, z, w }; };
+	
 	// Members
 	float x, y, z, w;
 };

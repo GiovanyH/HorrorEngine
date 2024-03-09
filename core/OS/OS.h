@@ -23,3 +23,25 @@
 
 #include "input.h"
 #include "window.h"
+
+#include <map>
+#include <string>
+
+/*
+	Made this EngineConfig to be able to easily add settings to the engine
+	without making it them global variables.
+*/
+
+std::map<std::string, void*> EngineConfig;
+
+// add settings to EngineConfig
+void AddSetting(std::string name, void* value)
+{
+	EngineConfig[name] = value;
+}
+
+// get settings from EngineConfig
+void* GetSetting(std::string name)
+{
+	return EngineConfig[name];
+}

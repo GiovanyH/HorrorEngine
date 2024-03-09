@@ -178,6 +178,19 @@ public:
 	{
 		glfwPollEvents();
 	}
+
+	// Debug print
+	void DebugPrint()
+	{
+		std::cout << "Window's focus: " << focus << std::endl;
+		std::cout << "Window's iconify: " << iconify << std::endl;
+		std::cout << "Window's maximize: " << maximize << std::endl;
+		std::cout << "Window's hover: " << hover << std::endl;
+		std::cout << "Window's visible: " << visible << std::endl;
+		std::cout << "Window's resizable: " << resizable << std::endl;
+		std::cout << "Window's decorated: " << decorated << std::endl;
+		std::cout << "Window's floating: " << floating << std::endl;
+	}
 };
 
 // Window constructors
@@ -230,6 +243,9 @@ gioWindow::gioWindow(int width, int height, const char* title, GLFWmonitor* moni
 		std::cout << "Failed to initialize GLFW" << std::endl;
 	}
 
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+
 	// Create the window
 	window = glfwCreateWindow(width, height, title, monitor, share);
 
@@ -256,7 +272,6 @@ gioWindow::gioWindow(int width, int height, const char* title)
 	floating = 0;
 
 	// initializing the pointers
-	window = nullptr;
 	pointer = nullptr;
 	this->monitor = nullptr;
 	attributes = nullptr;
@@ -266,6 +281,9 @@ gioWindow::gioWindow(int width, int height, const char* title)
 	{
 		std::cout << "Failed to initialize GLFW" << std::endl;
 	}
+
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 
 	// Create the window
 	window = glfwCreateWindow(width, height, title, nullptr, nullptr);

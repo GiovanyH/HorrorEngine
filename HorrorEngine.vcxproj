@@ -127,13 +127,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="core\libs\glad\glad.c" />
     <ClCompile Include="core\OS\input.cpp" />
     <ClCompile Include="editor\imgui_impl_glfw.cpp" />
     <ClCompile Include="editor\imgui_impl_opengl3.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="core\libs\glad\glad.h" />
+    <ClInclude Include="core\libs\glad\khrplatform.h" />
     <ClInclude Include="core\OS\input.h" />
+    <ClInclude Include="core\OS\OS.h" />
     <ClInclude Include="core\OS\window.h" />
     <ClInclude Include="core\types\mat2.h" />
     <ClInclude Include="core\types\mat3.h" />
@@ -145,7 +149,7 @@
     <ClInclude Include="editor\imgui_designs.h" />
     <ClInclude Include="editor\imgui_impl_glfw.h" />
     <ClInclude Include="editor\imgui_impl_opengl3.h" />
-    <ClInclude Include="OS.h" />
+    <ClInclude Include="editor\imgui_impl_opengl3_loader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -15,6 +15,9 @@
 
 #include <iostream>
 
+// including glad
+#include "core/libs/glad/glad.h"
+
 // including types.h
 #include "core/types/types.h"
 
@@ -29,13 +32,16 @@ void Init()
 {
 	// Initialize the game
 	// No need for fancy stuff
+	gladLoadGL();
 
-	// GLFW stuff
+	gioImGui::Init();
 }
 
 void Update()
 {
 	// Update the game
+
+	gioImGui::Update();
 }
 
 void Render()
@@ -46,20 +52,25 @@ void Render()
 void CleanUp()
 {
 	// Clean up the game
+
+	gioImGui::CleanUp();
 }
 
 int main()
 {
-	std::cout << "Hello, World!" << std::endl;
+	AddSetting("hello", (void*)"world");
+	std::cout << (const char*)EngineConfig["hello"] << std::endl;
+
+	// creating a gioWindow
+	gioWindow *window = new gioWindow(800, 600, "Gio Engine", nullptr, nullptr);
+
+	AddSetting("OS-window", window);
 
 	// Begin
 	Init();
 
-	// creating a gioWindow
-	gioWindow window(800, 600, "Gio Engine", nullptr, nullptr);
-
 	// Game loop
-	while (!window.ShouldClose())
+	while (!window->ShouldClose())
 	{
 		// Update window
 
@@ -71,13 +82,13 @@ int main()
 
 		// print the gioInput
 		gioInput input;
-		input.Update(window.window);
+		input.Update(window->window);
 		std::cout << gioInputToString(input);
 
 		// Swap buffers
-		window.SwapBuffers();
+		window->SwapBuffers();
 		// Poll events
-		window.PollEvents();
+		window->PollEvents();
 	}
 	CleanUp();
 
