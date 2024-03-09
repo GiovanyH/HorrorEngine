@@ -128,6 +128,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="core\OS\input.cpp" />
+    <ClCompile Include="editor\imgui_impl_glfw.cpp" />
+    <ClCompile Include="editor\imgui_impl_opengl3.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -140,6 +142,9 @@
     <ClInclude Include="core\types\vec2.h" />
     <ClInclude Include="core\types\vec3.h" />
     <ClInclude Include="core\types\vec4.h" />
+    <ClInclude Include="editor\imgui_designs.h" />
+    <ClInclude Include="editor\imgui_impl_glfw.h" />
+    <ClInclude Include="editor\imgui_impl_opengl3.h" />
     <ClInclude Include="OS.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,9 +1,17 @@
 // naming convention: gioVec2
 
 /*
-	Vectors are now classes for better handling
+	Next step is to add ImGui to the project
+	in order to easily output the text to the screen
+	instead of printing it all the time.
+
+	Next, I want to have a console for the engine
+	where we can see the output of the engine's log
+	without having to have a console window.
 */
 
+// ImGui designs are going to be in a separate file
+// called "imgui_designs.h", inside of the "editor" folder, for now
 
 #include <iostream>
 
@@ -12,6 +20,9 @@
 
 // including OS.h
 #include "core/OS/OS.h"
+
+// including imgui_designs
+#include "editor/imgui_designs.h"
 
 // Layout of the application/game
 void Init()
