@@ -87,142 +87,42 @@ void Init()
 	std::cout << "z: " << (vec3 / 2).z << std::endl;
 
 	// testing the matrix2
-	gioMat2 mat2 = { 1.0f, 2.0f, 3.0f, 4.0f };
-	std::cout << "mat2[0][0]: " << mat2.m00 << std::endl;
-	std::cout << "mat2[0][1]: " << mat2.m01 << std::endl;
-	std::cout << "mat2[1][0]: " << mat2.m10 << std::endl;
-	std::cout << "mat2[1][1]: " << mat2.m11 << std::endl;
-
+	gioMat2 mat2(1.0f, 2.0f, 3.0f, 4.0f);
+	std::cout << "mat2[0][0]: " << mat2.m[0][0] << std::endl;
+	std::cout << "mat2[0][1]: " << mat2.m[0][1] << std::endl;
+	std::cout << "mat2[1][0]: " << mat2.m[1][0] << std::endl;
+	std::cout << "mat2[1][1]: " << mat2.m[1][1] << std::endl;
+	
 	// testing the matrix3
-	gioMat3 mat3 = { 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f };
-	std::cout << "mat3[0][0]: " << mat3.m00 << std::endl;
-	std::cout << "mat3[0][1]: " << mat3.m01 << std::endl;
-	std::cout << "mat3[0][2]: " << mat3.m02 << std::endl;
-	std::cout << "mat3[1][0]: " << mat3.m10 << std::endl;
-	std::cout << "mat3[1][1]: " << mat3.m11 << std::endl;
-	std::cout << "mat3[1][2]: " << mat3.m12 << std::endl;
-	std::cout << "mat3[2][0]: " << mat3.m20 << std::endl;
-	std::cout << "mat3[2][1]: " << mat3.m21 << std::endl;
-	std::cout << "mat3[2][2]: " << mat3.m22 << std::endl;
-	
+	gioMat3 mat3(1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f);
+	std::cout << "mat3[0][0]: " << mat3.m[0][0] << std::endl;
+	std::cout << "mat3[0][1]: " << mat3.m[0][1] << std::endl;
+	std::cout << "mat3[0][2]: " << mat3.m[0][2] << std::endl;
+	std::cout << "mat3[1][0]: " << mat3.m[1][0] << std::endl;
+	std::cout << "mat3[1][1]: " << mat3.m[1][1] << std::endl;
+	std::cout << "mat3[1][2]: " << mat3.m[1][2] << std::endl;
+	std::cout << "mat3[2][0]: " << mat3.m[2][0] << std::endl;
+	std::cout << "mat3[2][1]: " << mat3.m[2][1] << std::endl;
+	std::cout << "mat3[2][2]: " << mat3.m[2][2] << std::endl;
+
 	// testing the matrix4
-	gioMat4 mat4 = { 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f, 11.0f, 12.0f, 13.0f, 14.0f, 15.0f, 16.0f };
-	std::cout << "mat4[0][0]: " << mat4.m00 << std::endl;
-	std::cout << "mat4[0][1]: " << mat4.m01 << std::endl;
-	std::cout << "mat4[0][2]: " << mat4.m02 << std::endl;
-	std::cout << "mat4[0][3]: " << mat4.m03 << std::endl;
-	std::cout << "mat4[1][0]: " << mat4.m10 << std::endl;
-	std::cout << "mat4[1][1]: " << mat4.m11 << std::endl;
-	std::cout << "mat4[1][2]: " << mat4.m12 << std::endl;
-	std::cout << "mat4[1][3]: " << mat4.m13 << std::endl;
-	std::cout << "mat4[2][0]: " << mat4.m20 << std::endl;
-	std::cout << "mat4[2][1]: " << mat4.m21 << std::endl;
-	std::cout << "mat4[2][2]: " << mat4.m22 << std::endl;
-	std::cout << "mat4[2][3]: " << mat4.m23 << std::endl;
-	std::cout << "mat4[3][0]: " << mat4.m30 << std::endl;
-	std::cout << "mat4[3][1]: " << mat4.m31 << std::endl;
-	std::cout << "mat4[3][2]: " << mat4.m32 << std::endl;
-	
-	// testing the maths with matrices
-	// matrix2 tests
-
-	// multiplication
-	std::cout << "Multiplied matrix2 by 2" << std::endl;
-	std::cout << "m00: " << (mat2 * 2).m00 << std::endl;
-	std::cout << "m01: " << (mat2 * 2).m01 << std::endl;
-	std::cout << "m10: " << (mat2 * 2).m10 << std::endl;
-	std::cout << "m11: " << (mat2 * 2).m11 << std::endl;
-
-	// division
-	std::cout << "Divided matrix2 by 2" << std::endl;
-	std::cout << "m00: " << (mat2 / 2).m00 << std::endl;
-	std::cout << "m01: " << (mat2 / 2).m01 << std::endl;
-	std::cout << "m10: " << (mat2 / 2).m10 << std::endl;
-	std::cout << "m11: " << (mat2 / 2).m11 << std::endl;
-
-	// matrix 3 tests
-	// multiplication
-	std::cout << "Multiplied matrix3 by 2" << std::endl;
-	std::cout << "m00: " << (mat3 * 2).m00 << std::endl;
-	std::cout << "m01: " << (mat3 * 2).m01 << std::endl;
-	std::cout << "m02: " << (mat3 * 2).m02 << std::endl;
-	std::cout << "m10: " << (mat3 * 2).m10 << std::endl;
-	std::cout << "m11: " << (mat3 * 2).m11 << std::endl;
-	std::cout << "m12: " << (mat3 * 2).m12 << std::endl;
-	std::cout << "m20: " << (mat3 * 2).m20 << std::endl;
-	std::cout << "m21: " << (mat3 * 2).m21 << std::endl;
-	std::cout << "m22: " << (mat3 * 2).m22 << std::endl;
-
-	// division
-	std::cout << "Divided matrix3 by 2" << std::endl;
-	std::cout << "m00: " << (mat3 / 2).m00 << std::endl;
-	std::cout << "m01: " << (mat3 / 2).m01 << std::endl;
-	std::cout << "m02: " << (mat3 / 2).m02 << std::endl;
-	std::cout << "m10: " << (mat3 / 2).m10 << std::endl;
-	std::cout << "m11: " << (mat3 / 2).m11 << std::endl;
-	std::cout << "m12: " << (mat3 / 2).m12 << std::endl;
-	std::cout << "m20: " << (mat3 / 2).m20 << std::endl;
-	std::cout << "m21: " << (mat3 / 2).m21 << std::endl;
-	std::cout << "m22: " << (mat3 / 2).m22 << std::endl;
-
-	// matrix 4 tests
-	// multiplication
-	std::cout << "Multiplied matrix4 by 2" << std::endl;
-	std::cout << "m00: " << (mat4 * 2).m00 << std::endl;
-	std::cout << "m01: " << (mat4 * 2).m01 << std::endl;
-	std::cout << "m02: " << (mat4 * 2).m02 << std::endl;
-	std::cout << "m03: " << (mat4 * 2).m03 << std::endl;
-	std::cout << "m10: " << (mat4 * 2).m10 << std::endl;
-	std::cout << "m11: " << (mat4 * 2).m11 << std::endl;
-	std::cout << "m12: " << (mat4 * 2).m12 << std::endl;
-	std::cout << "m13: " << (mat4 * 2).m13 << std::endl;
-	std::cout << "m20: " << (mat4 * 2).m20 << std::endl;
-	std::cout << "m21: " << (mat4 * 2).m21 << std::endl;
-	std::cout << "m22: " << (mat4 * 2).m22 << std::endl;
-	std::cout << "m23: " << (mat4 * 2).m23 << std::endl;
-	std::cout << "m30: " << (mat4 * 2).m30 << std::endl;
-	std::cout << "m31: " << (mat4 * 2).m31 << std::endl;
-	std::cout << "m32: " << (mat4 * 2).m32 << std::endl;
-	std::cout << "m33: " << (mat4 * 2).m33 << std::endl;
-
-	// division
-	std::cout << "Divided matrix4 by 2" << std::endl;
-	std::cout << "m00: " << (mat4 / 2).m00 << std::endl;
-	std::cout << "m01: " << (mat4 / 2).m01 << std::endl;
-	std::cout << "m02: " << (mat4 / 2).m02 << std::endl;
-	std::cout << "m03: " << (mat4 / 2).m03 << std::endl;
-	std::cout << "m10: " << (mat4 / 2).m10 << std::endl;
-	std::cout << "m11: " << (mat4 / 2).m11 << std::endl;
-	std::cout << "m12: " << (mat4 / 2).m12 << std::endl;
-	std::cout << "m13: " << (mat4 / 2).m13 << std::endl;
-	std::cout << "m20: " << (mat4 / 2).m20 << std::endl;
-	std::cout << "m21: " << (mat4 / 2).m21 << std::endl;
-	std::cout << "m22: " << (mat4 / 2).m22 << std::endl;
-	std::cout << "m23: " << (mat4 / 2).m23 << std::endl;
-	std::cout << "m30: " << (mat4 / 2).m30 << std::endl;
-	std::cout << "m31: " << (mat4 / 2).m31 << std::endl;
-	std::cout << "m32: " << (mat4 / 2).m32 << std::endl;
-	std::cout << "m33: " << (mat4 / 2).m33 << std::endl;
-
-	// testing the matrix4 * matrix4
-	gioMat4 mat4_3 = { 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f, 11.0f, 12.0f, 13.0f, 14.0f, 15.0f, 16.0f };
-	gioMat4 mat4_4 = { 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f, 11.0f, 12.0f, 13.0f, 14.0f, 15.0f, 16.0f };
-	std::cout << "mat4_3[0][0]: " << (mat4_3 * mat4_4).m00 << std::endl;
-	std::cout << "mat4_3[0][1]: " << (mat4_3 * mat4_4).m01 << std::endl;
-	std::cout << "mat4_3[0][2]: " << (mat4_3 * mat4_4).m02 << std::endl;
-	std::cout << "mat4_3[0][3]: " << (mat4_3 * mat4_4).m03 << std::endl;
-	std::cout << "mat4_3[1][0]: " << (mat4_3 * mat4_4).m10 << std::endl;
-	std::cout << "mat4_3[1][1]: " << (mat4_3 * mat4_4).m11 << std::endl;
-	std::cout << "mat4_3[1][2]: " << (mat4_3 * mat4_4).m12 << std::endl;
-	std::cout << "mat4_3[1][3]: " << (mat4_3 * mat4_4).m13 << std::endl;
-	std::cout << "mat4_3[2][0]: " << (mat4_3 * mat4_4).m20 << std::endl;
-	std::cout << "mat4_3[2][1]: " << (mat4_3 * mat4_4).m21 << std::endl;
-	std::cout << "mat4_3[2][2]: " << (mat4_3 * mat4_4).m22 << std::endl;
-	std::cout << "mat4_3[2][3]: " << (mat4_3 * mat4_4).m23 << std::endl;
-	std::cout << "mat4_3[3][0]: " << (mat4_3 * mat4_4).m30 << std::endl;
-	std::cout << "mat4_3[3][1]: " << (mat4_3 * mat4_4).m31 << std::endl;
-	std::cout << "mat4_3[3][2]: " << (mat4_3 * mat4_4).m32 << std::endl;
-	std::cout << "mat4_3[3][3]: " << (mat4_3 * mat4_4).m33 << std::endl;
+	gioMat4 mat4(1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f, 11.0f, 12.0f, 13.0f, 14.0f, 15.0f, 16.0f);
+	std::cout << "mat4[0][0]: " << mat4.m[0][0] << std::endl;
+	std::cout << "mat4[0][1]: " << mat4.m[0][1] << std::endl;
+	std::cout << "mat4[0][2]: " << mat4.m[0][2] << std::endl;
+	std::cout << "mat4[0][3]: " << mat4.m[0][3] << std::endl;
+	std::cout << "mat4[1][0]: " << mat4.m[1][0] << std::endl;
+	std::cout << "mat4[1][1]: " << mat4.m[1][1] << std::endl;
+	std::cout << "mat4[1][2]: " << mat4.m[1][2] << std::endl;
+	std::cout << "mat4[1][3]: " << mat4.m[1][3] << std::endl;
+	std::cout << "mat4[2][0]: " << mat4.m[2][0] << std::endl;
+	std::cout << "mat4[2][1]: " << mat4.m[2][1] << std::endl;
+	std::cout << "mat4[2][2]: " << mat4.m[2][2] << std::endl;
+	std::cout << "mat4[2][3]: " << mat4.m[2][3] << std::endl;
+	std::cout << "mat4[3][0]: " << mat4.m[3][0] << std::endl;
+	std::cout << "mat4[3][1]: " << mat4.m[3][1] << std::endl;
+	std::cout << "mat4[3][2]: " << mat4.m[3][2] << std::endl;
+	std::cout << "mat4[3][3]: " << mat4.m[3][3] << std::endl;
 }
 
 void Update()

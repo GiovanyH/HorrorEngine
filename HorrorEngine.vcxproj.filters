@@ -44,5 +44,14 @@
     <ClInclude Include="vec4.h">
       <Filter>Arquivos de Origem\core\types</Filter>
     </ClInclude>
+    <ClInclude Include="mat2.h">
+      <Filter>Arquivos de Origem\core\types</Filter>
+    </ClInclude>
+    <ClInclude Include="mat3.h">
+      <Filter>Arquivos de Origem\core\types</Filter>
+    </ClInclude>
+    <ClInclude Include="mat4.h">
+      <Filter>Arquivos de Origem\core\types</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

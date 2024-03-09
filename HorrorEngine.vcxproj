@@ -131,6 +131,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\types\types.h" />
+    <ClInclude Include="mat2.h" />
+    <ClInclude Include="mat3.h" />
+    <ClInclude Include="mat4.h" />
     <ClInclude Include="vec2.h" />
     <ClInclude Include="vec3.h" />
     <ClInclude Include="vec4.h" />
