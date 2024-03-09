@@ -35,5 +35,14 @@
     <ClInclude Include="core\types\types.h">
       <Filter>Arquivos de Origem\core\types</Filter>
     </ClInclude>
+    <ClInclude Include="vec2.h">
+      <Filter>Arquivos de Origem\core\types</Filter>
+    </ClInclude>
+    <ClInclude Include="vec3.h">
+      <Filter>Arquivos de Origem\core\types</Filter>
+    </ClInclude>
+    <ClInclude Include="vec4.h">
+      <Filter>Arquivos de Origem\core\types</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,3 +1,10 @@
+// naming convention: gioVec2
+
+/*
+	Vectors are now classes for better handling
+*/
+
+
 #include <iostream>
 
 // including types.h
@@ -11,18 +18,18 @@ void Init()
 
 	// testing the types.h
 	// testing the vector2
-	gioVec2 vec2 = { 1.0f, 2.0f };
+	gioVec2 vec2(1.0f, 2.0f);
 	std::cout << "vec2.x: " << vec2.x << std::endl;
 	std::cout << "vec2.y: " << vec2.y << std::endl;
 
 	// testing the vector3
-	gioVec3 vec3 = { 1.0f, 2.0f, 3.0f };
+	gioVec3 vec3(1.0f, 2.0f, 3.0f);
 	std::cout << "vec3.x: " << vec3.x << std::endl;
 	std::cout << "vec3.y: " << vec3.y << std::endl;
 	std::cout << "vec3.z: " << vec3.z << std::endl;
 
 	// testing the vector4
-	gioVec4 vec4 = { 1.0f, 2.0f, 3.0f, 4.0f };
+	gioVec4 vec4(1.0f, 2.0f, 3.0f, 4.0f);
 	std::cout << "vec4.x: " << vec4.x << std::endl;
 	std::cout << "vec4.y: " << vec4.y << std::endl;
 	std::cout << "vec4.z: " << vec4.z << std::endl;
@@ -196,17 +203,6 @@ void Init()
 	std::cout << "m31: " << (mat4 / 2).m31 << std::endl;
 	std::cout << "m32: " << (mat4 / 2).m32 << std::endl;
 	std::cout << "m33: " << (mat4 / 2).m33 << std::endl;
-
-	// testing the matrix4 * vector4
-	gioVec4 vec4_2 = { 1.0f, 2.0f, 3.0f, 4.0f };
-	gioVec4 vec4_3 = { 1.0f, 2.0f, 3.0f, 4.0f };
-	gioVec4 vec4_4 = { 1.0f, 2.0f, 3.0f, 4.0f };
-	gioVec4 vec4_5 = { 1.0f, 2.0f, 3.0f, 4.0f };
-	gioMat4 mat4_2 = { 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f, 11.0f, 12.0f, 13.0f, 14.0f, 15.0f, 16.0f };
-	std::cout << "vec4_2.x: " << (mat4_2 * vec4_2).x << std::endl;
-	std::cout << "vec4_2.y: " << (mat4_2 * vec4_3).y << std::endl;
-	std::cout << "vec4_2.z: " << (mat4_2 * vec4_4).z << std::endl;
-	std::cout << "vec4_2.w: " << (mat4_2 * vec4_5).w << std::endl;
 
 	// testing the matrix4 * matrix4
 	gioMat4 mat4_3 = { 1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 9.0f, 10.0f, 11.0f, 12.0f, 13.0f, 14.0f, 15.0f, 16.0f };

@@ -25,24 +25,6 @@
 
 // TODO: put those types into separate files
 
-// vec2
-struct gioVec2
-{
-	float x, y;
-};
-
-// vec3
-struct gioVec3
-{
-	float x, y, z;
-};
-
-// vec4
-struct gioVec4
-{
-	float x, y, z, w;
-};
-
 // mat2
 struct gioMat2
 {
@@ -69,24 +51,6 @@ struct gioMat4
 
 // constructors
 
-// vec2
-gioVec2 gioVec2Create(float x, float y)
-{
-	return { x, y };
-}
-
-// vec3
-gioVec3 gioVec3Create(float x, float y, float z)
-{
-	return { x, y, z };
-}
-
-// vec4
-gioVec4 gioVec4Create(float x, float y, float z, float w)
-{
-	return { x, y, z, w };
-}
-
 // mat2
 gioMat2 gioMat2Create(float m00, float m01, float m10, float m11)
 {
@@ -107,73 +71,12 @@ gioMat4 gioMat4Create(float m00, float m01, float m02, float m03, float m10, flo
 
 // for math functions like sqrt and sin/cos
 #include <cmath>
+// Including the vectors
+#include "vec2.h"
+#include "vec3.h"
+#include "vec4.h"
 
 // some functions for those types
-
-// vec2
-gioVec2 gioVec2Add(gioVec2 a, gioVec2 b)
-{
-	return { a.x + b.x, a.y + b.y };
-}
-
-gioVec2 gioVec2Sub(gioVec2 a, gioVec2 b)
-{
-	return { a.x - b.x, a.y - b.y };
-}
-
-gioVec2 gioVec2Mul(gioVec2 a, gioVec2 b)
-{
-	return { a.x * b.x, a.y * b.y };
-}
-
-gioVec2 gioVec2Div(gioVec2 a, gioVec2 b)
-{
-	return { a.x / b.x, a.y / b.y };
-}
-
-// vec3
-
-gioVec3 gioVec3Add(gioVec3 a, gioVec3 b)
-{
-	return { a.x + b.x, a.y + b.y, a.z + b.z };
-}
-
-gioVec3 gioVec3Sub(gioVec3 a, gioVec3 b)
-{
-	return { a.x - b.x, a.y - b.y, a.z - b.z };
-}
-
-gioVec3 gioVec3Mul(gioVec3 a, gioVec3 b)
-{
-	return { a.x * b.x, a.y * b.y, a.z * b.z };
-}
-
-gioVec3 gioVec3Div(gioVec3 a, gioVec3 b)
-{
-	return { a.x / b.x, a.y / b.y, a.z / b.z };
-}
-
-// vec4
-
-gioVec4 gioVec4Add(gioVec4 a, gioVec4 b)
-{
-	return { a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w };
-}
-
-gioVec4 gioVec4Sub(gioVec4 a, gioVec4 b)
-{
-	return { a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w };
-}
-
-gioVec4 gioVec4Mul(gioVec4 a, gioVec4 b)
-{
-	return { a.x * b.x, a.y * b.y, a.z * b.z, a.w * b.w };
-}
-
-gioVec4 gioVec4Div(gioVec4 a, gioVec4 b)
-{
-	return { a.x / b.x, a.y / b.y, a.z / b.z, a.w / b.w };
-}
 
 // mat2
 
@@ -243,79 +146,6 @@ gioMat4 gioMat4Div(gioMat4 a, gioMat4 b)
 
 // some other functions
 
-// vec2
-gioVec2 gioVec2Negate(gioVec2 a)
-{
-	return { -a.x, -a.y };
-}
-
-gioVec2 gioVec2Normalize(gioVec2 a)
-{
-	float length = sqrt(a.x * a.x + a.y * a.y);
-	return { a.x / length, a.y / length };
-}
-
-float gioVec2Dot(gioVec2 a, gioVec2 b)
-{
-	return a.x * b.x + a.y * b.y;
-}
-
-float gioVec2Length(gioVec2 a)
-{
-	return sqrt(a.x * a.x + a.y * a.y);
-}
-
-// vec3
-
-gioVec3 gioVec3Negate(gioVec3 a)
-{
-	return { -a.x, -a.y, -a.z };
-}
-
-gioVec3 gioVec3Normalize(gioVec3 a)
-{
-	float length = sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
-	return { a.x / length, a.y / length, a.z / length };
-}
-
-float gioVec3Dot(gioVec3 a, gioVec3 b)
-{
-	return a.x * b.x + a.y * b.y + a.z * b.z;
-}
-
-gioVec3 gioVec3Cross(gioVec3 a, gioVec3 b)
-{
-	return { a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x * b.y - a.y * b.x };
-}
-
-float gioVec3Length(gioVec3 a)
-{
-	return sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
-}
-
-// vec4
-
-gioVec4 gioVec4Negate(gioVec4 a)
-{
-	return { -a.x, -a.y, -a.z, -a.w };
-}
-
-gioVec4 gioVec4Normalize(gioVec4 a)
-{
-	float length = sqrt(a.x * a.x + a.y * a.y + a.z * a.z + a.w * a.w);
-	return { a.x / length, a.y / length, a.z / length, a.w / length };
-}
-
-float gioVec4Dot(gioVec4 a, gioVec4 b)
-{
-	return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w;
-}
-
-float gioVec4Length(gioVec4 a)
-{
-	return sqrt(a.x * a.x + a.y * a.y + a.z * a.z + a.w * a.w);
-}
-
 // mat2
 
 gioMat2 gioMat2Transpose(gioMat2 a)
@@ -339,18 +169,6 @@ gioMat4 gioMat4Transpose(gioMat4 a)
 
 // some constants
 
-// vec2
-gioVec2 gioVec2Zero = { 0.0f, 0.0f };
-gioVec2 gioVec2One = { 1.0f, 1.0f };
-
-// vec3
-gioVec3 gioVec3Zero = { 0.0f, 0.0f, 0.0f };
-gioVec3 gioVec3One = { 1.0f, 1.0f, 1.0f };
-
-// vec4
-gioVec4 gioVec4Zero = { 0.0f, 0.0f, 0.0f, 0.0f };
-gioVec4 gioVec4One = { 1.0f, 1.0f, 1.0f, 1.0f };
-
 // mat2
 gioMat2 gioMat2Identity = { 1.0f, 0.0f, 0.0f, 1.0f };
 
@@ -361,71 +179,6 @@ gioMat3 gioMat3Identity = { 1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f
 gioMat4 gioMat4Identity = { 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f };
 
 // some operator overloads
-
-// vec2
-gioVec2 operator+(gioVec2 a, gioVec2 b)
-{
-	return gioVec2Add(a, b);
-}
-
-gioVec2 operator-(gioVec2 a, gioVec2 b)
-{
-	return gioVec2Sub(a, b);
-}
-
-gioVec2 operator*(gioVec2 a, gioVec2 b)
-{
-	return gioVec2Mul(a, b);
-}
-
-gioVec2 operator/(gioVec2 a, gioVec2 b)
-{
-	return gioVec2Div(a, b);
-}
-
-// vec3
-
-gioVec3 operator+(gioVec3 a, gioVec3 b)
-{
-	return gioVec3Add(a, b);
-}
-
-gioVec3 operator-(gioVec3 a, gioVec3 b)
-{
-	return gioVec3Sub(a, b);
-}
-
-gioVec3 operator*(gioVec3 a, gioVec3 b)
-{
-	return gioVec3Mul(a, b);
-}
-
-gioVec3 operator/(gioVec3 a, gioVec3 b)
-{
-	return gioVec3Div(a, b);
-}
-
-// vec4
-
-gioVec4 operator+(gioVec4 a, gioVec4 b)
-{
-	return gioVec4Add(a, b);
-}
-
-gioVec4 operator-(gioVec4 a, gioVec4 b)
-{
-	return gioVec4Sub(a, b);
-}
-
-gioVec4 operator*(gioVec4 a, gioVec4 b)
-{
-	return gioVec4Mul(a, b);
-}
-
-gioVec4 operator/(gioVec4 a, gioVec4 b)
-{
-	return gioVec4Div(a, b);
-}
 
 // mat2
 
@@ -465,81 +218,11 @@ gioMat4 operator-(gioMat4 a, gioMat4 b)
 
 // some other operator overloads
 
-// vec2
-gioVec2 operator-(gioVec2 a)
-{
-	return gioVec2Negate(a);
-}
-
-gioVec2 operator*(gioVec2 a, float b)
-{
-	return { a.x * b, a.y * b };
-}
-
-gioVec2 operator*(float a, gioVec2 b)
-{
-	return { a * b.x, a * b.y };
-}
-
-gioVec2 operator/(gioVec2 a, float b)
-{
-	return { a.x / b, a.y / b };
-}
-
-// vec3
-
-gioVec3 operator-(gioVec3 a)
-{
-	return gioVec3Negate(a);
-}
-
-gioVec3 operator*(gioVec3 a, float b)
-{
-	return { a.x * b, a.y * b, a.z * b };
-}
-
-gioVec3 operator*(float a, gioVec3 b)
-{
-	return { a * b.x, a * b.y, a * b.z };
-}
-
-gioVec3 operator/(gioVec3 a, float b)
-{
-	return { a.x / b, a.y / b, a.z / b };
-}
-
-// vec4
-
-gioVec4 operator-(gioVec4 a)
-{
-	return gioVec4Negate(a);
-}
-
-gioVec4 operator*(gioVec4 a, float b)
-{
-	return { a.x * b, a.y * b, a.z * b, a.w * b };
-}
-
-gioVec4 operator*(float a, gioVec4 b)
-{
-	return { a * b.x, a * b.y, a * b.z, a * b.w };
-}
-
-gioVec4 operator/(gioVec4 a, float b)
-{
-	return { a.x / b, a.y / b, a.z / b, a.w / b };
-}
-
 // mat2
 
 gioMat2 operator*(gioMat2 a, gioMat2 b)
 {
 	return gioMat2Mul(a, b);
-}
-
-gioVec2 operator*(gioMat2 a, gioVec2 b)
-{
-	return { a.m00 * b.x + a.m01 * b.y, a.m10 * b.x + a.m11 * b.y };
 }
 
 gioMat2 operator*(gioMat2 a, float b)
@@ -564,11 +247,6 @@ gioMat3 operator*(gioMat3 a, gioMat3 b)
 	return gioMat3Mul(a, b);
 }
 
-gioVec3 operator*(gioMat3 a, gioVec3 b)
-{
-	return { a.m00 * b.x + a.m01 * b.y + a.m02 * b.z, a.m10 * b.x + a.m11 * b.y + a.m12 * b.z, a.m20 * b.x + a.m21 * b.y + a.m22 * b.z };
-}
-
 gioMat3 operator*(gioMat3 a, float b)
 {
 	return { a.m00 * b, a.m01 * b, a.m02 * b, a.m10 * b, a.m11 * b, a.m12 * b, a.m20 * b, a.m21 * b, a.m22 * b };
@@ -589,11 +267,6 @@ gioMat3 operator/(gioMat3 a, float b)
 gioMat4 operator*(gioMat4 a, gioMat4 b)
 {
 	return gioMat4Mul(a, b);
-}
-
-gioVec4 operator*(gioMat4 a, gioVec4 b)
-{
-	return { a.m00 * b.x + a.m01 * b.y + a.m02 * b.z + a.m03 * b.w, a.m10 * b.x + a.m11 * b.y + a.m12 * b.z + a.m13 * b.w, a.m20 * b.x + a.m21 * b.y + a.m22 * b.z + a.m23 * b.w, a.m30 * b.x + a.m31 * b.y + a.m32 * b.z + a.m33 * b.w };
 }
 
 gioMat4 operator*(gioMat4 a, float b)
@@ -617,25 +290,6 @@ gioMat4 operator/(gioMat4 a, float b)
 
 // vec2
 
-gioVec2 gioVec2Lerp(gioVec2 a, gioVec2 b, float t)
-{
-	return a + t * (b - a);
-}
-
-// vec3
-
-gioVec3 gioVec3Lerp(gioVec3 a, gioVec3 b, float t)
-{
-	return a + t * (b - a);
-}
-
-// vec4
-
-gioVec4 gioVec4Lerp(gioVec4 a, gioVec4 b, float t)
-{
-	return a + t * (b - a);
-}
-
 // mat2
 
 gioMat2 gioMat2Lerp(gioMat2 a, gioMat2 b, float t)
@@ -658,61 +312,6 @@ gioMat4 gioMat4Lerp(gioMat4 a, gioMat4 b, float t)
 }
 
 // some other functions
-
-// vec2
-
-gioVec2 gioVec2Rotate(gioVec2 a, float angle)
-{
-	float s = sin(angle);
-	float c = cos(angle);
-	return { a.x * c - a.y * s, a.x * s + a.y * c };
-}
-
-// vec3
-
-gioVec3 gioVec3RotateX(gioVec3 a, float angle)
-{
-	float s = sin(angle);
-	float c = cos(angle);
-	return { a.x, a.y * c - a.z * s, a.y * s + a.z * c };
-}
-
-gioVec3 gioVec3RotateY(gioVec3 a, float angle)
-{
-	float s = sin(angle);
-	float c = cos(angle);
-	return { a.x * c + a.z * s, a.y, -a.x * s + a.z * c };
-}
-
-gioVec3 gioVec3RotateZ(gioVec3 a, float angle)
-{
-	float s = sin(angle);
-	float c = cos(angle);
-	return { a.x * c - a.y * s, a.x * s + a.y * c, a.z };
-}
-
-// vec4
-
-gioVec4 gioVec4RotateX(gioVec4 a, float angle)
-{
-	float s = sin(angle);
-	float c = cos(angle);
-	return { a.x, a.y * c - a.z * s, a.y * s + a.z * c, a.w };
-}
-
-gioVec4 gioVec4RotateY(gioVec4 a, float angle)
-{
-	float s = sin(angle);
-	float c = cos(angle);
-	return { a.x * c + a.z * s, a.y, -a.x * s + a.z * c, a.w };
-}
-
-gioVec4 gioVec4RotateZ(gioVec4 a, float angle)
-{
-	float s = sin(angle);
-	float c = cos(angle);
-	return { a.x * c - a.y * s, a.x * s + a.y * c, a.z, a.w };
-}
 
 // mat2
 
@@ -767,50 +366,4 @@ gioMat4 gioMat4RotateZ(gioMat4 a, float angle)
 	float s = sin(angle);
 	float c = cos(angle);
 	return { a.m00 * c - a.m01 * s, a.m00 * s + a.m01 * c, a.m02, a.m03, a.m10 * c - a.m11 * s, a.m10 * s + a.m11 * c, a.m12, a.m13, a.m20 * c - a.m21 * s, a.m20 * s + a.m21 * c, a.m22, a.m23, a.m30, a.m31 * c - a.m32 * s, a.m31 * s + a.m32 * c, a.m33 };
-}
-
-// some other functions
-
-// vec2
-
-gioVec2 gioVec2Transform(gioVec2 a, gioMat2 b)
-{
-	return { b.m00 * a.x + b.m01 * a.y, b.m10 * a.x + b.m11 * a.y };
-}
-
-// vec3
-
-gioVec3 gioVec3Transform(gioVec3 a, gioMat3 b)
-{
-	return { b.m00 * a.x + b.m01 * a.y + b.m02 * a.z, b.m10 * a.x + b.m11 * a.y + b.m12 * a.z, b.m20 * a.x + b.m21 * a.y + b.m22 * a.z };
-}
-
-// vec4
-
-gioVec4 gioVec4Transform(gioVec4 a, gioMat4 b)
-{
-	return { b.m00 * a.x + b.m01 * a.y + b.m02 * a.z + b.m03 * a.w, b.m10 * a.x + b.m11 * a.y + b.m12 * a.z + b.m13 * a.w, b.m20 * a.x + b.m21 * a.y + b.m22 * a.z + b.m23 * a.w, b.m30 * a.x + b.m31 * a.y + b.m32 * a.z + b.m33 * a.w };
-}
-
-// some other functions
-
-// vec2
-
-gioVec2 gioVec2TransformNormal(gioVec2 a, gioMat2 b)
-{
-	return { b.m00 * a.x + b.m01 * a.y, b.m10 * a.x + b.m11 * a.y };
-}
-
-// vec3
-
-gioVec3 gioVec3TransformNormal(gioVec3 a, gioMat3 b)
-{
-	return { b.m00 * a.x + b.m01 * a.y + b.m02 * a.z, b.m10 * a.x + b.m11 * a.y + b.m12 * a.z, b.m20 * a.x + b.m21 * a.y + b.m22 * a.z };
-}
-
-// vec4
-
-gioVec4 gioVec4TransformNormal(gioVec4 a, gioMat4 b)
-{
-	return { b.m00 * a.x + b.m01 * a.y + b.m02 * a.z + b.m03 * a.w, b.m10 * a.x + b.m11 * a.y + b.m12 * a.z + b.m13 * a.w, b.m20 * a.x + b.m21 * a.y + b.m22 * a.z + b.m23 * a.w, b.m30 * a.x + b.m31 * a.y + b.m32 * a.z + b.m33 * a.w };
 }
