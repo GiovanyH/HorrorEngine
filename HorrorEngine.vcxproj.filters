@@ -26,4 +26,14 @@
       <UniqueIdentifier>{f655f37b-6d73-48ea-bfce-088d99b174dd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Arquivos de Origem\core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="core\types\types.h">
+      <Filter>Arquivos de Origem\core\types</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>
