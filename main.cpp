@@ -40,7 +40,6 @@ void Init()
 void Update()
 {
 	// Update the game
-
 	gioImGui::Update();
 }
 
@@ -84,6 +83,20 @@ int main()
 
 		// print the gioInput
 		input.Update(window->window);
+
+		gioInput *inputPtr = new gioInput;
+
+		if (input.key != -1 && input.key == GLFW_KEY_D && GetKeyboardInput("gio_left") == nullptr)
+		{
+			std::cout << "Key: " << input.key << std::endl;
+			inputPtr->key = input.key;
+			AddKeyboardInput("gio_left", &inputPtr->key);
+		}
+
+		if (GetKeyboardInput("gio_left") != nullptr)
+		{
+			std::cout << "Key: " << *GetKeyboardInput("gio_left") << std::endl;
+		}
 
 		// Add the input to the settings
 		AddSetting("OS-keyboardinput-string", (void*)gioGetKeyboardInputs(input));

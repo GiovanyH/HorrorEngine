@@ -19,14 +19,17 @@
 */
 
 /*
-    I want a window that shows the inputs that we are currently pressing
-    so that instead of printing it to the console every frame,
-    we can just update the text in the window.
+    I want to make a window for EngineConfig
+
+    then, I want that window to have a option to add inputs to an input dictionary
+    that maps whatever std::string name you specify, to a desired input
 */
 
 /*
-    I'm gonna copy the simple overlay from ImGui Demo
-    and then I'm gonna edit it to do what I want.
+    I'm going to start this by making a save system for my engine. Where you can easily save whatever you add / remove
+    from EngineConfig
+
+    That will make things easier.
 */
 
 static void ShowExampleAppSimpleOverlay(bool* p_open)
@@ -109,7 +112,7 @@ namespace gioImGui
         ImGui_ImplOpenGL3_Init(glsl_version);
 
         // Our state
-        bool *show_demo_window = new bool(false);
+        bool *show_demo_window = new bool(true);
         bool *show_another_window = new bool(false);
         bool *show_simple_overlay = new bool(true);
         gioVec4 *clear_color = new gioVec4(0.45f, 0.55f, 0.60f, 1.00f);

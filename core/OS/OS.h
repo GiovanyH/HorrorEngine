@@ -45,3 +45,70 @@ void* GetSetting(std::string name)
 {
 	return EngineConfig[name];
 }
+
+/*
+	Adding some input functions to EngineConfig
+	to later be able to map a string to a key, mouse button, gamepad button, etc.
+
+	Just like most game engines nowadays.
+*/
+
+// Add keyboard input
+void AddKeyboardInput(std::string name, int *key)
+{
+	EngineConfig["OS-keyboard" + name] = (void*)key;
+}
+
+// Get keyboard input
+int* GetKeyboardInput(std::string name)
+{
+	return (int*)EngineConfig["OS-keyboard" + name];
+}
+
+// Add mouse input
+void AddMouseInput(std::string name, int* button)
+{
+	EngineConfig["OS-mouse" + name] = (void*)button;
+}
+
+// Get mouse input
+int* GetMouseInput(std::string name)
+{
+	return (int*)EngineConfig["OS-mouse" + name];
+}
+
+// Add gamepad input
+void AddGamepadInput(std::string name, int* button)
+{
+	EngineConfig["OS-gamepad" + name] = (void*)button;
+}
+
+// Get gamepad input
+int* GetGamepadInput(std::string name)
+{
+	return (int*)EngineConfig["OS-gamepad" + name];
+}
+
+// Add gamepad axis
+void AddGamepadAxis(std::string name, gioVec2* axis)
+{
+	EngineConfig["OS-gamepad" + name] = (void*)axis;
+}
+
+// Get gamepad axis
+gioVec2* GetGamepadAxis(std::string name)
+{
+	return (gioVec2*)EngineConfig["OS-gamepad" + name];
+}
+
+// Add gamepad trigger
+void AddGamepadTrigger(std::string name, gioVec2* trigger)
+{
+	EngineConfig["OS-gamepad" + name] = (void*)trigger;
+}
+
+// Get gamepad trigger
+gioVec2* GetGamepadTrigger(std::string name)
+{
+	return (gioVec2*)EngineConfig["OS-gamepad" + name];
+}
