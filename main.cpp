@@ -69,6 +69,8 @@ int main()
 	// Begin
 	Init();
 
+	gioInput input;
+
 	// Game loop
 	while (!window->ShouldClose())
 	{
@@ -81,19 +83,12 @@ int main()
 		Render();
 
 		// print the gioInput
-		gioInput input;
 		input.Update(window->window);
 
 		// Add the input to the settings
-		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(222, 80, 80, 255));
 		AddSetting("OS-keyboardinput-string", (void*)gioGetKeyboardInputs(input));
-		ImGui::PopStyleColor();
-		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(80, 222, 80, 255));
 		AddSetting("OS-mouseinput-string", (void*)gioGetMouseInputs(input));
-		ImGui::PopStyleColor();
-		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(80, 80, 222, 255));
 		AddSetting("OS-gamepadinput-string", (void*)gioGetGamepadInputs(input));
-		ImGui::PopStyleColor();
 
 		// Swap buffers
 		window->SwapBuffers();
