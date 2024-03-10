@@ -288,12 +288,6 @@ gioWindow::gioWindow(int width, int height, const char* title)
 	// Create the window
 	window = glfwCreateWindow(width, height, title, nullptr, nullptr);
 
-	// Set the window's user pointer
-	glfwSetWindowUserPointer(window, pointer);
-
-	// Set the window's monitor
-	glfwSetWindowMonitor(window, monitor, 0, 0, width, height, 60);
-
 	// Set the window's context
 	glfwMakeContextCurrent(window);
 }

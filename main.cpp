@@ -62,7 +62,7 @@ int main()
 	std::cout << (const char*)EngineConfig["hello"] << std::endl;
 
 	// creating a gioWindow
-	gioWindow *window = new gioWindow(800, 600, "Gio Engine", nullptr, nullptr);
+	gioWindow *window = new gioWindow(800, 600, "Gio Engine");
 
 	AddSetting("OS-window", window);
 
@@ -83,7 +83,17 @@ int main()
 		// print the gioInput
 		gioInput input;
 		input.Update(window->window);
-		std::cout << gioInputToString(input);
+
+		// Add the input to the settings
+		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(222, 80, 80, 255));
+		AddSetting("OS-keyboardinput-string", (void*)gioGetKeyboardInputs(input));
+		ImGui::PopStyleColor();
+		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(80, 222, 80, 255));
+		AddSetting("OS-mouseinput-string", (void*)gioGetMouseInputs(input));
+		ImGui::PopStyleColor();
+		ImGui::PushStyleColor(ImGuiCol_Text, IM_COL32(80, 80, 222, 255));
+		AddSetting("OS-gamepadinput-string", (void*)gioGetGamepadInputs(input));
+		ImGui::PopStyleColor();
 
 		// Swap buffers
 		window->SwapBuffers();
