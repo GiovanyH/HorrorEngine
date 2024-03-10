@@ -49,6 +49,9 @@
     <Filter Include="Arquivos de Origem\audio">
       <UniqueIdentifier>{57ad67fe-934b-4419-98f9-10c3fe3b851a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Arquivos de Cabeçalho\core\filesystem">
+      <UniqueIdentifier>{6ab4ed16-8bd4-496f-8e66-0f28d1da6c07}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -124,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="core\audio\win_main_utf8.h">
       <Filter>Arquivos de Cabeçalho\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="core\filesystem\filesystem.h">
+      <Filter>Arquivos de Cabeçalho\core\filesystem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -137,6 +137,7 @@
     <ClInclude Include="core\audio\alhelpers.h" />
     <ClInclude Include="core\audio\audio.h" />
     <ClInclude Include="core\audio\win_main_utf8.h" />
+    <ClInclude Include="core\filesystem\filesystem.h" />
     <ClInclude Include="core\libs\glad\glad.h" />
     <ClInclude Include="core\libs\glad\khrplatform.h" />
     <ClInclude Include="core\OS\input.h" />

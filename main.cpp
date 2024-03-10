@@ -24,6 +24,9 @@
 // including OS.h
 #include "core/OS/OS.h"
 
+// including filesystem.h
+#include "core/filesystem/filesystem.h"
+
 #include <AL/al.h>
 #include <AL/alc.h>
 
@@ -40,8 +43,15 @@ void Init()
 	// Initialize the game
 	// No need for fancy stuff
 	gladLoadGL();
-
 	gioImGui::Init();
+
+	std::string* EngineConfigPath = new std::string("EngineConfig.ini");
+
+	// Initializing EngineConfig
+	AddSetting("engine-settings-configpath", EngineConfigPath);
+	core::InitFileSystem();
+
+	core::LoadEngineConfig();
 }
 
 void Update()
@@ -106,8 +116,8 @@ int main(int argc, char** argv)
 		if (input.key != -1 && input.key == GLFW_KEY_D && GetKeyboardInput("gio_left") == nullptr)
 		{
 			std::cout << "Key: " << input.key << std::endl;
-			inputPtr->key = input.key;
-			AddKeyboardInput("gio_left", &inputPtr->key);
+			int key = input.key;
+			AddKeyboardInput("gio_left", &key);
 		}
 
 		if (GetKeyboardInput("gio_left") != nullptr)
@@ -126,6 +136,8 @@ int main(int argc, char** argv)
 		window->PollEvents();
 	}
 	CleanUp();
+
+	core::UpdateEngineConfig();
 
 
 	return 0;
