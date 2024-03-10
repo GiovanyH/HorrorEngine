@@ -88,6 +88,46 @@ static void ShowExampleAppSimpleOverlay(bool* p_open)
     ImGui::End();
 }
 
+// Make a window to play any sounds with ImGui, specifying the sound directory in a text input
+static void ShowExampleAppSoundPlayer(bool* p_open)
+{
+    ImGuiIO& io = ImGui::GetIO();
+	
+    ALuint source, buffer;
+    ALfloat offset;
+    ALenum state;
+
+    static char directory[128] = "Directory:";
+    
+    if (ImGui::Begin("Sound Player", p_open))
+	{
+
+		ImGui::Text("Sound Directory:");
+		ImGui::SameLine();
+        ImGui::InputText("####SoundDirectory", directory, IM_ARRAYSIZE(directory));
+
+		if (ImGui::Button("Play Sound"))
+		{
+            /* Load the sound into a buffer. */
+            char** directory_c_array = (char**) &directory;
+
+            if (InitAL(&directory_c_array, 0) != 0)
+                return;
+
+            buffer = LoadSound(directory);
+			// Play the sound
+            /* Create the source to play the sound with. */
+            source = 0;
+            alGenSources(1, &source);
+            alSourcei(source, AL_BUFFER, (ALint)buffer);
+            assert(alGetError() == AL_NO_ERROR && "Failed to setup sound source");
+
+            /* Play the sound until it finishes. */
+            alSourcePlay(source);
+		}
+	}
+	ImGui::End();
+}
 
 namespace gioImGui
 {
@@ -112,14 +152,16 @@ namespace gioImGui
         ImGui_ImplOpenGL3_Init(glsl_version);
 
         // Our state
-        bool *show_demo_window = new bool(true);
+        bool *show_demo_window = new bool(false);
         bool *show_another_window = new bool(false);
         bool *show_simple_overlay = new bool(true);
+        bool* show_example_sound_player = new bool(true);
         gioVec4 *clear_color = new gioVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
         AddSetting("ImGui-show_demo_window", show_demo_window);
         AddSetting("ImGui-show_another_window", show_another_window);
         AddSetting("ImGui-show_simple_overlay", show_simple_overlay);
+        AddSetting("ImGui-show_example_sound_player", show_example_sound_player);
         AddSetting("OpenGL-clear_color", clear_color);
     }
 
@@ -133,6 +175,7 @@ namespace gioImGui
         bool *show_demo_window = (bool*)GetSetting("ImGui-show_demo_window");
         bool *show_another_window = (bool*)GetSetting("ImGui-show_another_window");
         bool *show_simple_overlay = (bool*)GetSetting("ImGui-show_simple_overlay");
+        bool *show_example_sound_player = (bool*)GetSetting("ImGui-show_example_sound_player");
         gioVec4 *clear_color = (gioVec4*)GetSetting("OpenGL-clear_color");
 
         gioWindow *window = (gioWindow*)GetSetting("OS-window");
@@ -142,6 +185,9 @@ namespace gioImGui
         // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
         if (*show_demo_window)
             ImGui::ShowDemoWindow(show_demo_window);
+
+        if (*show_example_sound_player)
+            ShowExampleAppSoundPlayer(show_example_sound_player);
 
         // 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
         {
