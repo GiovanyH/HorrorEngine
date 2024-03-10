@@ -129,6 +129,49 @@ static void ShowExampleAppSoundPlayer(bool* p_open)
 	ImGui::End();
 }
 
+static void ShowInputWindow(bool* p_open)
+{
+	ImGuiIO& io = ImGui::GetIO();
+
+    // creating the buffer for the input
+    static char input[128] = "Input Name";
+
+    gioInput *gio_input = (gioInput*)GetSetting("OS-input");
+    gioWindow *window = (gioWindow*)GetSetting("OS-window");
+
+	if (ImGui::Begin("Input Window", p_open))
+	{
+		ImGui::Text("Name the input");
+        ImGui::InputText("####InputName", input, IM_ARRAYSIZE(input));
+
+        if (ImGui::Button("Add Input"))
+		{
+            while (gio_input->key == -1) {
+                gio_input->Update(window->window);
+
+                window->PollEvents();
+            }
+
+            int *key = new int(gio_input->key);
+
+            AddKeyboardInput(input, key);
+		}
+
+        ImGui::Separator();
+
+        for (auto it = EngineConfig.begin(); it != EngineConfig.end(); it++)
+        {
+            // find the inputs and write to file
+            if (it->first.find("OS-keyboard") != std::string::npos && it->first.find("string") == std::string::npos && it->second != nullptr)
+            {
+                int key = *(int*)it->second;
+                ImGui::Text((std::string("") + it->first + "|" + std::to_string(key)).c_str());
+            }
+        }
+	}
+	ImGui::End();
+}
+
 namespace gioImGui
 {
     void Init()
@@ -157,13 +200,15 @@ namespace gioImGui
         bool *show_demo_window = new bool(false);
         bool *show_another_window = new bool(false);
         bool *show_simple_overlay = new bool(true);
-        bool* show_example_sound_player = new bool(true);
+        bool *show_example_sound_player = new bool(true);
+        bool *show_input_window = new bool(true);
         gioVec4 *clear_color = new gioVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
         AddSetting("ImGui-show_demo_window", show_demo_window);
         AddSetting("ImGui-show_another_window", show_another_window);
         AddSetting("ImGui-show_simple_overlay", show_simple_overlay);
         AddSetting("ImGui-show_example_sound_player", show_example_sound_player);
+        AddSetting("ImGui-show_input_window", show_input_window);
         AddSetting("OpenGL-clear_color", clear_color);
     }
 
@@ -178,6 +223,7 @@ namespace gioImGui
         bool *show_another_window = (bool*)GetSetting("ImGui-show_another_window");
         bool *show_simple_overlay = (bool*)GetSetting("ImGui-show_simple_overlay");
         bool *show_example_sound_player = (bool*)GetSetting("ImGui-show_example_sound_player");
+        bool *show_input_window = (bool*)GetSetting("ImGui-show_input_window");
         gioVec4 *clear_color = (gioVec4*)GetSetting("OpenGL-clear_color");
 
         gioWindow *window = (gioWindow*)GetSetting("OS-window");
@@ -190,6 +236,9 @@ namespace gioImGui
 
         if (*show_example_sound_player)
             ShowExampleAppSoundPlayer(show_example_sound_player);
+
+        if (*show_input_window)
+            ShowInputWindow(show_input_window);
 
         // 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
         {

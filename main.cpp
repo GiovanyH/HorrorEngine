@@ -87,7 +87,9 @@ int main(int argc, char** argv)
 	// Begin
 	Init();
 
-	gioInput input;
+	gioInput *input = new gioInput();
+
+	AddSetting("OS-input", input);
 
 	// Game loop
 	while (!window->ShouldClose())
@@ -109,11 +111,9 @@ int main(int argc, char** argv)
 		Render();
 
 		// print the gioInput
-		input.Update(window->window);
+		input->Update(window->window);
 
-		gioInput *inputPtr = new gioInput;
-
-		if (input.key != -1 && input.key == GLFW_KEY_D && GetKeyboardInput("gio_left") == nullptr)
+		/*if (input->key != -1 && input.key == GLFW_KEY_D && GetKeyboardInput("gio_left") == nullptr)
 		{
 			std::cout << "Key: " << input.key << std::endl;
 			int key = input.key;
@@ -123,12 +123,12 @@ int main(int argc, char** argv)
 		if (GetKeyboardInput("gio_left") != nullptr)
 		{
 			std::cout << "Key: " << *GetKeyboardInput("gio_left") << std::endl;
-		}
+		}*/
 
 		// Add the input to the settings
-		AddSetting("OS-keyboardinput-string", (void*)gioGetKeyboardInputs(input));
-		AddSetting("OS-mouseinput-string", (void*)gioGetMouseInputs(input));
-		AddSetting("OS-gamepadinput-string", (void*)gioGetGamepadInputs(input));
+		AddSetting("OS-keyboardinput-string", (void*)gioGetKeyboardInputs(*input));
+		AddSetting("OS-mouseinput-string", (void*)gioGetMouseInputs(*input));
+		AddSetting("OS-gamepadinput-string", (void*)gioGetGamepadInputs(*input));
 
 		// Swap buffers
 		window->SwapBuffers();
