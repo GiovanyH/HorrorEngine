@@ -127,13 +127,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="core\audio\alhelpers.c" />
     <ClCompile Include="core\libs\glad\glad.c" />
-    <ClCompile Include="core\OS\input.cpp" />
     <ClCompile Include="editor\imgui_impl_glfw.cpp" />
     <ClCompile Include="editor\imgui_impl_opengl3.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="core\audio\alhelpers.h" />
+    <ClInclude Include="core\audio\audio.h" />
+    <ClInclude Include="core\audio\win_main_utf8.h" />
     <ClInclude Include="core\libs\glad\glad.h" />
     <ClInclude Include="core\libs\glad\khrplatform.h" />
     <ClInclude Include="core\OS\input.h" />

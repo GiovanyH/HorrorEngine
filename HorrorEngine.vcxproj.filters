@@ -31,13 +31,40 @@
     <Filter Include="Arquivos de Cabeçalho\core\OS">
       <UniqueIdentifier>{7f0fc021-e0c0-4786-8c48-1a11dcb84aa1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Arquivos de Origem\libs">
+      <UniqueIdentifier>{d9a21fff-975c-4d1b-95a6-01a97507777a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Origem\editor">
+      <UniqueIdentifier>{146442bb-c702-4209-bee1-19000ef7d212}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Cabeçalho\libs">
+      <UniqueIdentifier>{053818e5-3cf7-4921-a54d-46a9d29fa1a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Cabeçalho\editor">
+      <UniqueIdentifier>{b53bdba1-c349-4cf9-962f-5bf5d202c3f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Cabeçalho\audio">
+      <UniqueIdentifier>{e605fa59-dea0-4c69-b3fa-3dea1e50eb00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Origem\audio">
+      <UniqueIdentifier>{57ad67fe-934b-4419-98f9-10c3fe3b851a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Arquivos de Origem\core</Filter>
     </ClCompile>
-    <ClCompile Include="core\OS\input.cpp">
-      <Filter>Arquivos de Origem</Filter>
+    <ClCompile Include="core\libs\glad\glad.c">
+      <Filter>Arquivos de Origem\libs</Filter>
+    </ClCompile>
+    <ClCompile Include="editor\imgui_impl_glfw.cpp">
+      <Filter>Arquivos de Origem\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="editor\imgui_impl_opengl3.cpp">
+      <Filter>Arquivos de Origem\editor</Filter>
+    </ClCompile>
+    <ClCompile Include="core\audio\alhelpers.c">
+      <Filter>Arquivos de Origem\audio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -62,14 +89,41 @@
     <ClInclude Include="core\types\vec4.h">
       <Filter>Arquivos de Cabeçalho\core\types</Filter>
     </ClInclude>
-    <ClInclude Include="OS.h">
-      <Filter>Arquivos de Cabeçalho\core\OS</Filter>
-    </ClInclude>
     <ClInclude Include="core\OS\window.h">
       <Filter>Arquivos de Cabeçalho\core\OS</Filter>
     </ClInclude>
     <ClInclude Include="core\OS\input.h">
       <Filter>Arquivos de Cabeçalho\core\OS</Filter>
+    </ClInclude>
+    <ClInclude Include="core\libs\glad\glad.h">
+      <Filter>Arquivos de Cabeçalho\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="editor\imgui_impl_glfw.h">
+      <Filter>Arquivos de Cabeçalho\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="editor\imgui_impl_opengl3.h">
+      <Filter>Arquivos de Cabeçalho\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="editor\imgui_impl_opengl3_loader.h">
+      <Filter>Arquivos de Cabeçalho\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="core\libs\glad\khrplatform.h">
+      <Filter>Arquivos de Cabeçalho\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="editor\imgui_designs.h">
+      <Filter>Arquivos de Cabeçalho\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="core\OS\OS.h">
+      <Filter>Arquivos de Cabeçalho\core\OS</Filter>
+    </ClInclude>
+    <ClInclude Include="core\audio\audio.h">
+      <Filter>Arquivos de Cabeçalho\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="core\audio\alhelpers.h">
+      <Filter>Arquivos de Cabeçalho\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="core\audio\win_main_utf8.h">
+      <Filter>Arquivos de Cabeçalho\audio</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
