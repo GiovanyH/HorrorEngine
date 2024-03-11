@@ -27,6 +27,12 @@
 // including filesystem.h
 #include "core/filesystem/filesystem.h"
 
+// including shader.h
+#include "render/shader.h"
+
+// including draw_quad.h
+#include "render/draw_quad.h"
+
 #include <AL/al.h>
 #include <AL/alc.h>
 
@@ -43,6 +49,9 @@ void Init()
 	// Initialize the game
 	// No need for fancy stuff
 	gladLoadGL();
+
+	glEnable(GL_BLEND);
+
 	gioImGui::Init();
 
 	std::string* EngineConfigPath = new std::string("EngineConfig.ini");
@@ -52,6 +61,10 @@ void Init()
 	core::InitFileSystem();
 
 	core::LoadEngineConfig();
+
+	quad_object *quad = new quad_object("seamless.png", "shaders/quad.vs", "shaders/quad.fs");
+
+	AddSetting("DebugQuad", quad);
 }
 
 void Update()
@@ -91,18 +104,17 @@ int main(int argc, char** argv)
 
 	AddSetting("OS-input", input);
 
+	quad_object *quad = (quad_object*)EngineConfig["DebugQuad"];
+
+	gioVec4* clear_color = (gioVec4*)GetSetting("OpenGL-clear_color");
+
 	// Game loop
 	while (!window->ShouldClose())
 	{
-		/*alGetSourcei(source, AL_SOURCE_STATE, &state);
-		// Update Audio
-		if (alGetError() == AL_NO_ERROR && state == AL_PLAYING)
-		{
-			alGetSourcef(source, AL_SEC_OFFSET, &offset);
-			//fflush(stdout);
-		}*/
-
-		// Update window
+		glClearColor(clear_color->x * clear_color->w, clear_color->y * clear_color->w, clear_color->z * clear_color->w, clear_color->w);
+		glClear(GL_COLOR_BUFFER_BIT);
+		
+		quad->draw();
 
 		// Update
 		Update();
@@ -110,20 +122,13 @@ int main(int argc, char** argv)
 		// Render
 		Render();
 
-		// print the gioInput
-		input->Update(window->window);
-
-		/*if (input->key != -1 && input.key == GLFW_KEY_D && GetKeyboardInput("gio_left") == nullptr)
+		if (input->getButton("GioLeft"))
 		{
-			std::cout << "Key: " << input.key << std::endl;
-			int key = input.key;
-			AddKeyboardInput("gio_left", &key);
+			std::cout << "Left" << std::endl;
 		}
 
-		if (GetKeyboardInput("gio_left") != nullptr)
-		{
-			std::cout << "Key: " << *GetKeyboardInput("gio_left") << std::endl;
-		}*/
+		// update the gioInput
+		input->Update(window->window);
 
 		// Add the input to the settings
 		AddSetting("OS-keyboardinput-string", (void*)gioGetKeyboardInputs(*input));
@@ -136,7 +141,7 @@ int main(int argc, char** argv)
 		window->PollEvents();
 	}
 	CleanUp();
-
+	quad->delete_quad();
 	core::UpdateEngineConfig();
 
 

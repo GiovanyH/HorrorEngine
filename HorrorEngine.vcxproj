@@ -154,6 +154,8 @@
     <ClInclude Include="editor\imgui_impl_glfw.h" />
     <ClInclude Include="editor\imgui_impl_opengl3.h" />
     <ClInclude Include="editor\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="render\draw_quad.h" />
+    <ClInclude Include="render\shader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -52,6 +52,9 @@
     <Filter Include="Arquivos de Cabeçalho\core\filesystem">
       <UniqueIdentifier>{6ab4ed16-8bd4-496f-8e66-0f28d1da6c07}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Arquivos de Cabeçalho\render">
+      <UniqueIdentifier>{0537c09b-83a0-4173-b5ef-20df50ed9dd3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -130,6 +133,12 @@
     </ClInclude>
     <ClInclude Include="core\filesystem\filesystem.h">
       <Filter>Arquivos de Cabeçalho\core\filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="render\shader.h">
+      <Filter>Arquivos de Cabeçalho\render</Filter>
+    </ClInclude>
+    <ClInclude Include="render\draw_quad.h">
+      <Filter>Arquivos de Cabeçalho\render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

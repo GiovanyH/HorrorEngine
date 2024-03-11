@@ -146,15 +146,18 @@ static void ShowInputWindow(bool* p_open)
 
         if (ImGui::Button("Add Input"))
 		{
-            while (gio_input->key == -1) {
+            while (gio_input->key == -1 && gio_input->gamepadButton == -1) {
                 gio_input->Update(window->window);
 
                 window->PollEvents();
             }
 
             int *key = new int(gio_input->key);
+            int *button = new int(gio_input->button);
+            int *gamepadButton = new int(gio_input->gamepadButton);
 
-            AddKeyboardInput(input, key);
+            if (*key != -1) AddKeyboardInput(input, key);
+            if (*gamepadButton != -1) AddGamepadInput(input, gamepadButton);
 		}
 
         ImGui::Separator();
@@ -162,7 +165,7 @@ static void ShowInputWindow(bool* p_open)
         for (auto it = EngineConfig.begin(); it != EngineConfig.end(); it++)
         {
             // find the inputs and write to file
-            if (it->first.find("OS-keyboard") != std::string::npos && it->first.find("string") == std::string::npos && it->second != nullptr)
+            if ((it->first.find("OS-keyboard") != std::string::npos || it->first.find("OS-gamepad") != std::string::npos) && it->first.find("string") == std::string::npos && it->second != nullptr)
             {
                 int key = *(int*)it->second;
                 ImGui::Text((std::string("") + it->first + "|" + std::to_string(key)).c_str());
@@ -283,8 +286,6 @@ namespace gioImGui
         int display_w = 800, display_h = 600;
         glfwGetFramebufferSize(window->window, &display_w, &display_h);
         glViewport(0, 0, display_w, display_h);
-        glClearColor(clear_color->x * clear_color->w, clear_color->y * clear_color->w, clear_color->z * clear_color->w, clear_color->w);
-        glClear(GL_COLOR_BUFFER_BIT);
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     }
 

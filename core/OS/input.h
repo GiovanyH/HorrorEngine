@@ -69,6 +69,8 @@ public:
 	{
 		gioInputFromGLFW(window);
 	}
+
+	int getButton(const char* input_string);
 };
 
 double old_yScrollPos = 0;

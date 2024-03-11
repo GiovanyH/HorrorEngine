@@ -112,3 +112,9 @@ gioVec2* GetGamepadTrigger(std::string name)
 {
 	return (gioVec2*)EngineConfig["OS-gamepad" + name];
 }
+
+int gioInput::getButton(const char *input_string)
+{
+	if (GetKeyboardInput(input_string) == nullptr) return 0;
+	return *GetKeyboardInput(input_string) == this->key || *GetGamepadInput(input_string) == this->gamepadButton;
+}

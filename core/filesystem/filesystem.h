@@ -15,7 +15,7 @@ namespace core
 
 		// Methods
 		void write(const char* filename, const char* data);
-		void read(const char* filename, char* data);
+		void read(const char* filename, std::string *data);
 		void append(const char* filename, const char* data);
 	};
 
@@ -34,11 +34,11 @@ namespace core
 		file.close();
 	}
 
-	void gioFileSystem::read(const char* filename, char* data)
+	void gioFileSystem::read(const char* filename, std::string *data)
 	{
 		std::ifstream file;
 		file.open(filename);
-		file >> data;
+		file >> *data;
 		file.close();
 	}
 
