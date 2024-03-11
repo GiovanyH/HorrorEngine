@@ -14,7 +14,21 @@ class quad_object
 public:
 	unsigned int VAO;
 	unsigned int texture;
+
+	unsigned int framex;
+	unsigned int framey;
+
+	float tex_size;
+
+	unsigned int tex_sizex;
+	unsigned int tex_sizey;
+
+	float deltaSecond;
 private:
+	bool isPlaying;
+	bool isFlipped;
+	unsigned int animationFPS;
+	
 	unsigned int VBO, EBO;
 	Shader* quad_shader;
 
@@ -30,7 +44,7 @@ private:
 	{
 		glGenBuffers(1, &VBO);
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, size, vertices, GL_DYNAMIC_DRAW);
 	}
 
 	// creating EBO
@@ -87,6 +101,8 @@ private:
 	{
 		quad_shader->use();
 		glUniform1i(glGetUniformLocation(quad_shader->ID, "texture1"), 0);
+
+		//glUniform2f(glGetUniformLocation(quad_shader->ID, "TexDiv"), 2.0f, 2.0f);
 	}
 
 public:
@@ -95,14 +111,23 @@ public:
 		std::cout << "VBO: " << VBO << std::endl;
 	}
 
-	quad_object(const char* texture_path, const char* vertex, const char* fragment)
+	quad_object(const char* texture_path, const char* vertex, const char* fragment, gioVec2 frame, gioVec2 size)
 	{
+		deltaSecond = 0;
+		framex = (int)frame.x;
+		framey = (int)frame.y;
+
+		tex_sizex = (int)size.x;
+		tex_sizey = (int)size.y;
+
+		gioVec2 tex_size = gioVec2(tex_sizex, tex_sizey);
+
 		float vertices[] = {
 			// positions          // colors           // texture coords
-			 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // top right
-			 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // bottom right
-			-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // bottom left
-			-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // top left 
+			 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   (framex + 1.0f) / tex_size.x, framey / tex_size.y, // top right
+			 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   (framex + 1.0f) / tex_size.x, (framey - 1.0f) / tex_size.y, // bottom right
+			-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   framex / tex_size.x, (framey - 1.0f) / tex_size.y, // bottom left
+			-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   framex / tex_size.x, framey / tex_size.y  // top left 
 		};
 		unsigned int indices[] = {
 			0, 1, 3, // first triangle
@@ -117,13 +142,29 @@ public:
 		set_vertex_attributes();
 		create_texture(texture_path);
 		use_shader(vertex, fragment);
+
+		AddSetting("isPlaying", new bool(false));
+		AddSetting("animationFPS", new int(animationFPS));
 	}
 
-	void draw()
+	void draw(float deltaTime)
 	{
 		// bind textures on corresponding texture units
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, texture);
+
+		gioVec2 tex_size = gioVec2(tex_sizex, tex_sizey);
+
+		float vertices[] = {
+			// positions          // colors           // texture coords
+			 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   (framex + 1.0f) / tex_size.x, framey / tex_size.y, // top right
+			 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   (framex + 1.0f) / tex_size.x, (framey - 1.0f) / tex_size.y, // bottom right
+			-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   framex / tex_size.x, (framey - 1.0f) / tex_size.y, // bottom left
+			-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   framex / tex_size.x, framey / tex_size.y  // top left 
+		};
+
+		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_DYNAMIC_DRAW);
 
 		// use shader
 		quad_shader->use();
@@ -132,6 +173,24 @@ public:
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
+		deltaSecond += deltaTime;
+
+		if (((deltaSecond * animationFPS) >= 1.0f) && isPlaying) {
+			framex++;
+			deltaSecond = 0.0f;
+		}
+
+		std::cout << framex << std::endl;
+
+		if (framex >= tex_size.x) {
+			framex = 0;
+		}
+		if (framey >= tex_size.y) {
+			framey = 0;
+		}
+
+		isPlaying = *(bool*)GetSetting("isPlaying");
+		animationFPS = *(int*)GetSetting("animationFPS");
 	}
 
 	void delete_quad()

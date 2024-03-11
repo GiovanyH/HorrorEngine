@@ -175,6 +175,37 @@ static void ShowInputWindow(bool* p_open)
 	ImGui::End();
 }
 
+static void ChangeFrame(bool* p_open)
+{
+    ImGuiIO& io = ImGui::GetIO();
+
+    int *animationFPS_p = (int*)GetSetting("animationFPS");
+	gioVec2 *frame = (gioVec2*)GetSetting("frame");
+    bool *isPlaying_p = (bool*)GetSetting("isPlaying");
+
+    static bool isPlaying;
+
+    static int fps;
+
+    if (ImGui::Begin("Change Frame", p_open))
+    {
+		ImGui::Text("Current Frame: ");
+        ImGui::Text("X: %f | Y: %f", frame->x, frame->y);
+
+        ImGui::Separator();
+        ImGui::Text("Animation");
+        if (ImGui::InputInt("FPS", &fps)) isPlaying = false;
+        if (ImGui::Button("Play")) isPlaying = true;
+	}
+	ImGui::End();
+
+    *animationFPS_p = fps;
+    *isPlaying_p = isPlaying;
+
+    AddSetting("animationFPS", animationFPS_p);
+    AddSetting("isPlaying", isPlaying_p);
+}
+
 namespace gioImGui
 {
     void Init()
@@ -213,6 +244,7 @@ namespace gioImGui
         AddSetting("ImGui-show_example_sound_player", show_example_sound_player);
         AddSetting("ImGui-show_input_window", show_input_window);
         AddSetting("OpenGL-clear_color", clear_color);
+        AddSetting("deltaTime", new float(io.DeltaTime));
     }
 
     void Update()
@@ -243,6 +275,9 @@ namespace gioImGui
         if (*show_input_window)
             ShowInputWindow(show_input_window);
 
+        if (*show_input_window)
+            ChangeFrame(show_input_window);
+
         // 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
         {
             static float f = 0.0f;
@@ -268,6 +303,7 @@ namespace gioImGui
         AddSetting("ImGui-show_another_window", show_another_window);
         AddSetting("ImGui-show_simple_overlay", show_simple_overlay);
         AddSetting("ImGui-clear_color", clear_color);
+        AddSetting("deltaTime", new float(io.DeltaTime));
 
         // 3. Show another simple window.
         if (*show_another_window)

@@ -62,9 +62,13 @@ void Init()
 
 	core::LoadEngineConfig();
 
-	quad_object *quad = new quad_object("seamless.png", "shaders/quad.vs", "shaders/quad.fs");
+	quad_object *quad = new quad_object("PlayerIdle.png", "shaders/quad.vs", "shaders/quad.fs", gioVec2(0.0f, 0.0f), gioVec2(10.0f, 1.0f));
 
 	AddSetting("DebugQuad", quad);
+
+	gioVec2 *frame = new gioVec2(0.0f, 0.0f);
+
+	AddSetting("frame", frame);
 }
 
 void Update()
@@ -114,7 +118,7 @@ int main(int argc, char** argv)
 		glClearColor(clear_color->x * clear_color->w, clear_color->y * clear_color->w, clear_color->z * clear_color->w, clear_color->w);
 		glClear(GL_COLOR_BUFFER_BIT);
 		
-		quad->draw();
+		quad->draw(*(float*)GetSetting("deltaTime"));
 
 		// Update
 		Update();
