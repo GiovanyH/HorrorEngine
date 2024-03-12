@@ -93,13 +93,16 @@ void CloseAL(void)
     ALCcontext* ctx;
 
     ctx = alcGetCurrentContext();
-    if (ctx == NULL)
-        return;
+    if (ctx == NULL) return;
 
     device = alcGetContextsDevice(ctx);
 
     alcMakeContextCurrent(NULL);
-    alcDestroyContext(ctx);
+    // checking if context is null first
+	alcDestroyContext(ctx);
+
+    // Checking if device is NULL first
+    if (device == NULL) return;
     alcCloseDevice(device);
 }
 

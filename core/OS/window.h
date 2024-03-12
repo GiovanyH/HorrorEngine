@@ -174,8 +174,9 @@ public:
 	}
 
 	// Poll events
-	void PollEvents()
+	void PollEvents(gioInput *input)
 	{
+		input->Update(this->window);
 		glfwPollEvents();
 	}
 

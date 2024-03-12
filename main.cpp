@@ -1,115 +1,109 @@
 // naming convention: gioVec2
 
-/*
-	Next step is to add ImGui to the project
-	in order to easily output the text to the screen
-	instead of printing it all the time.
-
-	Next, I want to have a console for the engine
-	where we can see the output of the engine's log
-	without having to have a console window.
-*/
-
-// ImGui designs are going to be in a separate file
+// ImGui designs are in a separate file
 // called "imgui_designs.h", inside of the "editor" folder, for now
 
 #include <iostream>
 
-// including glad
-#include "core/libs/glad/glad.h"
 
-// including types.h
+/* Core */
+// ---------------------
 #include "core/types/types.h"
 
-// including OS.h
+/* OpenGL stuff */
+#include "core/libs/glad/glad.h"
+
+/* OS folder is where Input.h, Window.h and the variable EngineConfig are located. */
 #include "core/OS/OS.h"
 
-// including filesystem.h
+/* My own filesystem so that it has my own naming convention and I can edit it without having to edit the whole code */
 #include "core/filesystem/filesystem.h"
 
-// including shader.h
+/* Render */
+// ---------------------
 #include "render/shader.h"
 
-// including draw_quad.h
+/* Used to draw 2D Sprites */
 #include "render/draw_quad.h"
 
+
+/* Audio */
+// ---------------------
 #include <AL/al.h>
 #include <AL/alc.h>
 
  /* This file contains an example for playing a sound buffer. */
-
 #include "core/audio/audio.h"
 
-// including imgui_designs
+/* Editor */
+// ---------------------
 #include "editor/imgui_designs.h"
 
 // Layout of the application/game
+// Init()
+// Update()
+// CleanUp()
+
 void Init()
 {
-	// Initialize the game
-	// No need for fancy stuff
+	// Initialize OpenGL
 	gladLoadGL();
-
-	glEnable(GL_BLEND);
-
+	// Initialize ImGui
 	gioImGui::Init();
-
+	// Initialize EngineConfig, TODO: EngineConfig.Init() something like this
 	std::string* EngineConfigPath = new std::string("EngineConfig.ini");
-
-	// Initializing EngineConfig
 	AddSetting("engine-settings-configpath", EngineConfigPath);
 	core::InitFileSystem();
-
 	core::LoadEngineConfig();
 
+	// Making an entity
 	quad_object *quad = new quad_object("PlayerIdle.png", "shaders/quad.vs", "shaders/quad.fs", gioVec2(0.0f, 0.0f), gioVec2(10.0f, 1.0f));
-
 	AddSetting("DebugQuad", quad);
-
 	gioVec2 *frame = new gioVec2(0.0f, 0.0f);
-
 	AddSetting("frame", frame);
 }
 
 void Update()
 {
-	// Update the game
+	// Update ImGui
 	gioImGui::Update();
 }
 
 void Render()
 {
 	// Render the game
+
 }
 
 void CleanUp()
 {
-	// Clean up the game
-
+	// Clean up ImGui
 	gioImGui::CleanUp();
-	/* All done. Delete resources, and close down OpenAL. */
+	/* close down OpenAL */
 	CloseAL();
 }
 
 int main(int argc, char** argv)
 {
+	// Testing EngineConfig
 	AddSetting("hello", (void*)"world");
 	std::cout << (const char*)EngineConfig["hello"] << std::endl;
 
 	// creating a gioWindow
 	gioWindow *window = new gioWindow(800, 600, "Gio Engine");
-
 	AddSetting("OS-window", window);
 
 	// Begin
 	Init();
 
+	// Input stuff
 	gioInput *input = new gioInput();
-
 	AddSetting("OS-input", input);
 
+	// Getting the entity
 	quad_object *quad = (quad_object*)EngineConfig["DebugQuad"];
 
+	// Getting OpenGL clear_color
 	gioVec4* clear_color = (gioVec4*)GetSetting("OpenGL-clear_color");
 
 	// Game loop
@@ -117,22 +111,19 @@ int main(int argc, char** argv)
 	{
 		glClearColor(clear_color->x * clear_color->w, clear_color->y * clear_color->w, clear_color->z * clear_color->w, clear_color->w);
 		glClear(GL_COLOR_BUFFER_BIT);
-		
-		quad->draw(*(float*)GetSetting("deltaTime"));
 
-		// Update
-		Update();
+		quad->draw(*(float*)GetSetting("deltaTime"));
 
 		// Render
 		Render();
 
-		if (input->getButton("GioLeft"))
-		{
-			std::cout << "Left" << std::endl;
-		}
+		// Update
+		Update();
 
+		// TODO: delete this comment later
 		// update the gioInput
-		input->Update(window->window);
+		//input->Update(window->window);
+		// gioInput is now passed to window->PollEvents()
 
 		// Add the input to the settings
 		AddSetting("OS-keyboardinput-string", (void*)gioGetKeyboardInputs(*input));
@@ -142,7 +133,7 @@ int main(int argc, char** argv)
 		// Swap buffers
 		window->SwapBuffers();
 		// Poll events
-		window->PollEvents();
+		window->PollEvents(input);
 	}
 	CleanUp();
 	quad->delete_quad();

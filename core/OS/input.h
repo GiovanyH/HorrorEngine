@@ -220,44 +220,50 @@ void gioInput::gioInputFromGLFW(GLFWwindow* window)
 
 const char *gioGetKeyboardInputs(gioInput input)
 {
-	std::string *result = new std::string("");
+	static std::string result = std::string("");
+
+	result = "";
 
 	// Keyboard
-	*result += "Key: " + std::to_string(input.key) + "\n";
-	*result += "Action: " + std::to_string(input.action) + "\n";
-	*result += "Mods: " + std::to_string(input.mods) + "\n";
+	result += "Key: " + std::to_string(input.key) + "\n";
+	result += "Action: " + std::to_string(input.action) + "\n";
+	result += "Mods: " + std::to_string(input.mods) + "\n";
 
-	return (*result).c_str();
+	return result.c_str();
 }
 
 const char* gioGetMouseInputs(gioInput input)
 {
-	std::string *result = new std::string("");
+	static std::string result;
+
+	result = "";
 
 	// Mouse
-	*result += "X: " + std::to_string(input.x) + "\n";
-	*result += "Y: " + std::to_string(input.y) + "\n";
-	*result += "ScrollY: " + std::to_string(input.scrollY) + "\n";
-	*result += "Button: " + std::to_string(input.button) + "\n";
+	result += "X: " + std::to_string(input.x) + "\n";
+	result += "Y: " + std::to_string(input.y) + "\n";
+	result += "ScrollY: " + std::to_string(input.scrollY) + "\n";
+	result += "Button: " + std::to_string(input.button) + "\n";
 
-	return (*result).c_str();
+	return result.c_str();
 }
 
 const char* gioGetGamepadInputs(gioInput input)
 {
-	std::string *result = new std::string("");
+	static std::string result;
+
+	result = "";
 
 	// Gamepad
-	*result += "GamepadButton: " + std::to_string(input.gamepadButton) + "\n";
+	result += "GamepadButton: " + std::to_string(input.gamepadButton) + "\n";
 
 	// Printing the gioVec2 axis x and y
-	*result += "GamepadLeftAxis: " + std::to_string(input.gamepadLeftStickAxis.x) + ", " + std::to_string(input.gamepadLeftStickAxis.y) + "\n";
-	*result += "GamepadRightAxis: " + std::to_string(input.gamepadRightStickAxis.x) + ", " + std::to_string(input.gamepadRightStickAxis.y) + "\n";
+	result += "GamepadLeftAxis: " + std::to_string(input.gamepadLeftStickAxis.x) + ", " + std::to_string(input.gamepadLeftStickAxis.y) + "\n";
+	result += "GamepadRightAxis: " + std::to_string(input.gamepadRightStickAxis.x) + ", " + std::to_string(input.gamepadRightStickAxis.y) + "\n";
 
 	// Printing the gioVec2 trigger x and y
-	*result += "GamepadTrigger: " + std::to_string(input.gamepadTrigger.x) + ", " + std::to_string(input.gamepadTrigger.y) + "\n";
+	result += "GamepadTrigger: " + std::to_string(input.gamepadTrigger.x) + ", " + std::to_string(input.gamepadTrigger.y) + "\n";
 
-	return (*result).c_str();
+	return result.c_str();
 }
 
 // Convert the input to a string

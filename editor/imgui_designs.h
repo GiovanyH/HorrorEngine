@@ -93,7 +93,7 @@ static void ShowExampleAppSoundPlayer(bool* p_open)
 {
     ImGuiIO& io = ImGui::GetIO();
 	
-    ALuint source, buffer;
+    static ALuint source, buffer;
     ALfloat offset;
     ALenum state;
 
@@ -108,6 +108,14 @@ static void ShowExampleAppSoundPlayer(bool* p_open)
 
 		if (ImGui::Button("Play Sound"))
 		{
+            // delete sound before playing
+            if (source != 0) alDeleteSources(1, &source);
+            if (buffer != 0) alDeleteBuffers(1, &buffer);
+
+            // TODO: better than this
+            // IDK why I'm doing this xd
+            CloseAL();
+
             /* Load the sound into a buffer. */
             char** directory_c_array = (char**) &directory;
 
@@ -139,6 +147,10 @@ static void ShowInputWindow(bool* p_open)
     gioInput *gio_input = (gioInput*)GetSetting("OS-input");
     gioWindow *window = (gioWindow*)GetSetting("OS-window");
 
+    static int key = -1;
+    static int button = -1;
+    static int gamepadButton = -1;
+
 	if (ImGui::Begin("Input Window", p_open))
 	{
 		ImGui::Text("Name the input");
@@ -147,17 +159,27 @@ static void ShowInputWindow(bool* p_open)
         if (ImGui::Button("Add Input"))
 		{
             while (gio_input->key == -1 && gio_input->gamepadButton == -1) {
-                gio_input->Update(window->window);
-
-                window->PollEvents();
+                // TODO: remove this comment
+                //gio_input->Update(window->window);
+                window->PollEvents(gio_input);
             }
 
-            int *key = new int(gio_input->key);
+            // This has memory leak and is quite slow, we should initialize it first instead
+            /*int* key = new int(gio_input->key);
             int *button = new int(gio_input->button);
-            int *gamepadButton = new int(gio_input->gamepadButton);
+            int *gamepadButton = new int(gio_input->gamepadButton);*/
 
-            if (*key != -1) AddKeyboardInput(input, key);
-            if (*gamepadButton != -1) AddGamepadInput(input, gamepadButton);
+            key = gio_input->key;
+            button = gio_input->button;
+            gamepadButton = gio_input->gamepadButton;
+
+            int* key_p = &key;
+            int* button_p = &button;
+            int* gamepadButton_p = &gamepadButton;
+
+            // TODO: later add button / mouse button to this
+            if (*key_p != -1) AddKeyboardInput(input, key_p);
+            if (*gamepadButton_p != -1) AddGamepadInput(input, gamepadButton_p);
 		}
 
         ImGui::Separator();
@@ -230,20 +252,14 @@ namespace gioImGui
         ImGui_ImplGlfw_InitForOpenGL(window->window, true);
         ImGui_ImplOpenGL3_Init(glsl_version);
 
-        // Our state
-        bool *show_demo_window = new bool(false);
-        bool *show_another_window = new bool(false);
-        bool *show_simple_overlay = new bool(true);
-        bool *show_example_sound_player = new bool(true);
-        bool *show_input_window = new bool(true);
-        gioVec4 *clear_color = new gioVec4(0.45f, 0.55f, 0.60f, 1.00f);
-
-        AddSetting("ImGui-show_demo_window", show_demo_window);
-        AddSetting("ImGui-show_another_window", show_another_window);
-        AddSetting("ImGui-show_simple_overlay", show_simple_overlay);
-        AddSetting("ImGui-show_example_sound_player", show_example_sound_player);
-        AddSetting("ImGui-show_input_window", show_input_window);
-        AddSetting("OpenGL-clear_color", clear_color);
+        // DO NOT DO THIS IN A LOOP
+        // make a pointer instead
+        AddSetting("ImGui-show_demo_window", new bool(false));
+        AddSetting("ImGui-show_another_window", new bool(false));
+        AddSetting("ImGui-show_simple_overlay", new bool(true));
+        AddSetting("ImGui-show_example_sound_player", new bool(true));
+        AddSetting("ImGui-show_input_window", new bool(true));
+        AddSetting("OpenGL-clear_color", new gioVec4(0.45f, 0.55f, 0.60f, 1.00f));
         AddSetting("deltaTime", new float(io.DeltaTime));
     }
 
@@ -260,6 +276,7 @@ namespace gioImGui
         bool *show_example_sound_player = (bool*)GetSetting("ImGui-show_example_sound_player");
         bool *show_input_window = (bool*)GetSetting("ImGui-show_input_window");
         gioVec4 *clear_color = (gioVec4*)GetSetting("OpenGL-clear_color");
+        float* deltaTime = (float*)GetSetting("deltaTime");
 
         gioWindow *window = (gioWindow*)GetSetting("OS-window");
 
@@ -303,7 +320,7 @@ namespace gioImGui
         AddSetting("ImGui-show_another_window", show_another_window);
         AddSetting("ImGui-show_simple_overlay", show_simple_overlay);
         AddSetting("ImGui-clear_color", clear_color);
-        AddSetting("deltaTime", new float(io.DeltaTime));
+        AddSetting("deltaTime", deltaTime);
 
         // 3. Show another simple window.
         if (*show_another_window)

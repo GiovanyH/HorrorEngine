@@ -4,9 +4,6 @@
 	The OS folder is going to be where Input.h and Window.h are located.
 	These files are going to be the ones that handle the input and windowing of the application.
 
-	I want Input.h to have my own naming convention instead of the one that GLFW uses.
-	For example, I want to use the name "gioKey" instead of "GLFW_KEY".
-
 	I also want that file to have inputs for the gamepad / controller.
 	with a weight for the joysticks and triggers.
 
@@ -24,12 +21,13 @@
 #include "input.h"
 #include "window.h"
 
+// For EngineConfig
 #include <map>
 #include <string>
 
 /*
 	Made this EngineConfig to be able to easily add settings to the engine
-	without making it them global variables.
+	without making them global variables.
 */
 
 std::map<std::string, void*> EngineConfig;
@@ -113,8 +111,12 @@ gioVec2* GetGamepadTrigger(std::string name)
 	return (gioVec2*)EngineConfig["OS-gamepad" + name];
 }
 
+/*
+	This will be used to get any button from the keyboard, mouse, or gamepad.
+*/
 int gioInput::getButton(const char *input_string)
 {
-	if (GetKeyboardInput(input_string) == nullptr) return 0;
-	return *GetKeyboardInput(input_string) == this->key || *GetGamepadInput(input_string) == this->gamepadButton;
+	// TODO: test if this will work
+	// but it will probably crash
+	return ((GetKeyboardInput(input_string) != nullptr && *GetKeyboardInput(input_string) == this->key) || (GetGamepadInput(input_string) != nullptr && *GetGamepadInput(input_string) == this->key));
 }
