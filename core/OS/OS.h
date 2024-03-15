@@ -58,9 +58,10 @@ void AddKeyboardInput(std::string name, int *key)
 }
 
 // Get keyboard input
-int* GetKeyboardInput(std::string name)
+int GetKeyboardInput(std::string name)
 {
-	return (int*)EngineConfig["OS-keyboard" + name];
+	if ((int*)EngineConfig["OS-keyboard" + name] == nullptr) return 0;
+	return *(int*)EngineConfig["OS-keyboard" + name];
 }
 
 // Add mouse input
@@ -118,5 +119,11 @@ int gioInput::getButton(const char *input_string)
 {
 	// TODO: test if this will work
 	// but it will probably crash
-	return ((GetKeyboardInput(input_string) != nullptr && *GetKeyboardInput(input_string) == this->key) || (GetGamepadInput(input_string) != nullptr && *GetGamepadInput(input_string) == this->key));
+	//return ((GetKeyboardInput(input_string) != nullptr && *GetKeyboardInput(input_string) == this->key) || (GetGamepadInput(input_string) != nullptr && *GetGamepadInput(input_string) == this->key));
+	return 0;
 }
+
+/*bool isInputKeyPressed(const char* input_string)
+{
+	return (GetKeyboardInput(input_string) != nullptr && *GetKeyboardInput(input_string) == 1);
+}*/

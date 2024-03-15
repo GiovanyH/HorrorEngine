@@ -5,7 +5,6 @@
 
 #include <iostream>
 
-
 /* Core */
 // ---------------------
 #include "core/types/types.h"
@@ -44,6 +43,14 @@
 // Update()
 // CleanUp()
 
+// Debug some state
+// Animation Data Structure:
+// x - start framex
+// y - end framex
+// z - start framey
+// w - end framey
+gioVec4 idle_state = gioVec4(0.0f, 0.0f, 5.0f, 5.0f);
+
 void Init()
 {
 	// Initialize OpenGL
@@ -57,10 +64,8 @@ void Init()
 	core::LoadEngineConfig();
 
 	// Making an entity
-	quad_object *quad = new quad_object("PlayerIdle.png", "shaders/quad.vs", "shaders/quad.fs", gioVec2(0.0f, 0.0f), gioVec2(10.0f, 1.0f));
+	quad_object *quad = new quad_object("PlayerIdle.png", "shaders/quad.vs", "shaders/quad.fs", gioVec2(8.0f, 8.0f), idle_state);
 	AddSetting("DebugQuad", quad);
-	gioVec2 *frame = new gioVec2(0.0f, 0.0f);
-	AddSetting("frame", frame);
 }
 
 void Update()
@@ -120,10 +125,25 @@ int main(int argc, char** argv)
 		// Update
 		Update();
 
-		// TODO: delete this comment later
-		// update the gioInput
-		//input->Update(window->window);
-		// gioInput is now passed to window->PollEvents()
+		if (GetKeyboardInput("GioLeft") == input->key) {
+			quad->position.x -= 1 * (*(float*)GetSetting("deltaTime"));
+			quad->change_state(1, gioVec4(0.0f, 5.0f, 1.0f, 1.0f));
+		}
+		else if (GetKeyboardInput("GioRight") == input->key) {
+			quad->position.x += 1 * (*(float*)GetSetting("deltaTime"));
+			quad->change_state(2, gioVec4(0.0f, 5.0f, 2.0f, 2.0f));
+		}
+		else if (GetKeyboardInput("GioUp") == input->key) {
+			quad->position.y += 1 * (*(float*)GetSetting("deltaTime"));
+			quad->change_state(3, gioVec4(0.0f, 5.0f, 3.0f, 3.0f));
+		}
+		else if (GetKeyboardInput("GioDown") == input->key) {
+			quad->position.y -= 1 * (*(float*)GetSetting("deltaTime"));
+			quad->change_state(4, gioVec4(0.0f, 5.0f, 4.0f, 4.0f));
+		}
+		else {
+			quad->change_state(5, gioVec4(0.0f, 0.0f, quad->animationData.z + 4.0f, quad->animationData.w + 4.0f));
+		}
 
 		// Add the input to the settings
 		AddSetting("OS-keyboardinput-string", (void*)gioGetKeyboardInputs(*input));

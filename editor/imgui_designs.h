@@ -147,9 +147,9 @@ static void ShowInputWindow(bool* p_open)
     gioInput *gio_input = (gioInput*)GetSetting("OS-input");
     gioWindow *window = (gioWindow*)GetSetting("OS-window");
 
-    static int key = -1;
-    static int button = -1;
-    static int gamepadButton = -1;
+    /*int key = -1;
+    int button = -1;
+    int gamepadButton = -1;*/
 
 	if (ImGui::Begin("Input Window", p_open))
 	{
@@ -164,22 +164,8 @@ static void ShowInputWindow(bool* p_open)
                 window->PollEvents(gio_input);
             }
 
-            // This has memory leak and is quite slow, we should initialize it first instead
-            /*int* key = new int(gio_input->key);
-            int *button = new int(gio_input->button);
-            int *gamepadButton = new int(gio_input->gamepadButton);*/
-
-            key = gio_input->key;
-            button = gio_input->button;
-            gamepadButton = gio_input->gamepadButton;
-
-            int* key_p = &key;
-            int* button_p = &button;
-            int* gamepadButton_p = &gamepadButton;
-
-            // TODO: later add button / mouse button to this
-            if (*key_p != -1) AddKeyboardInput(input, key_p);
-            if (*gamepadButton_p != -1) AddGamepadInput(input, gamepadButton_p);
+            if (gio_input->key != -1) AddKeyboardInput(input, new int(gio_input->key));
+            if (gio_input->gamepadButton != -1) AddGamepadInput(input, new int(gio_input->gamepadButton));
 		}
 
         ImGui::Separator();
