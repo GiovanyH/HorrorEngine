@@ -6,156 +6,130 @@
 #include <vector>
 #include "types/vec2.h"
 
+#include <string>
+
 class Entity
 {
 	private:
-	// transformation
-	gioVec2 global_position;
-	gioVec2 local_position;
-	gioVec2 size;
-	gioVec2 rotation_degrees;
+		// transformation
+		gioVec2 global_position;
+		gioVec2 local_position;
+		gioVec2 size;
+		gioVec2 rotation_degrees;
 
-	unsigned int id;
-	unsigned int parent_id;
-	std::vector<unsigned int> children_id[100];
-	unsigned int children_count;
-	unsigned int components_id[100];
-	unsigned int components_count;
-	unsigned int layer;
-	unsigned int tag;
+		unsigned int id;
+		unsigned int parent_id;
+		std::vector<unsigned int> children_id[100];
+		unsigned int children_count;
+		unsigned int components_id[100];
+		unsigned int components_count;
+		unsigned int layer;
+		unsigned int tag;
 
 	public:
-	// ready
-	virtual void ready();
+		std::string name;
 
-	// update
-	virtual void update();
+		// add component
+		void add_component(unsigned int component_id);
 
-	// render
-	virtual void render();
+		// remove component
+		void remove_component(unsigned int component_id);
 
-	// add component
-	void add_component(unsigned int component_id);
+		// add child
+		void add_child(unsigned int child_id);
 
-	// remove component
-	void remove_component(unsigned int component_id);
+		// remove child
+		void remove_child(unsigned int child_id);
 
-	// add child
-	void add_child(unsigned int child_id);
+		// get id
+		unsigned int get_id();
 
-	// remove child
-	void remove_child(unsigned int child_id);
+		// get parent id
+		unsigned int get_parent_id();
 
-	// get id
-	unsigned int get_id();
+		// get children id
+		unsigned int get_children_id(unsigned int index);
 
-	// get parent id
-	unsigned int get_parent_id();
+		// get children count
+		unsigned int get_children_count();
 
-	// get children id
-	unsigned int get_children_id(unsigned int index);
+		// get component id
+		unsigned int get_component_id(unsigned int index);
 
-	// get children count
-	unsigned int get_children_count();
+		// get component count
+		unsigned int get_component_count();
 
-	// get component id
-	unsigned int get_component_id(unsigned int index);
+		// get layer
+		unsigned int get_layer();
 
-	// get component count
-	unsigned int get_component_count();
+		// get tag
+		unsigned int get_tag();
 
-	// get layer
-	unsigned int get_layer();
+		// set global position
+		void set_global_position(gioVec2 position);
 
-	// get tag
-	unsigned int get_tag();
+		// set local position
+		void set_local_position(gioVec2 position);
 
-	// set global position
-	void set_global_position(gioVec2 position);
+		// set size
+		void set_size(gioVec2 size);
 
-	// set local position
-	void set_local_position(gioVec2 position);
+		// set rotation degrees
+		void set_rotation_degrees(gioVec2 rotation);
 
-	// set size
-	void set_size(gioVec2 size);
+		// set rotation radians
+		void set_rotation_radians(gioVec2 rotation);
 
-	// set rotation degrees
-	void set_rotation_degrees(gioVec2 rotation);
+		// set id
+		void set_id(unsigned int id);
 
-	// set rotation radians
-	void set_rotation_radians(gioVec2 rotation);
+		// set parent id
+		void set_parent_id(unsigned int parent_id);
 
-	// set id
-	void set_id(unsigned int id);
+		// set layer
+		void set_layer(unsigned int layer);
 
-	// set parent id
-	void set_parent_id(unsigned int parent_id);
+		// set tag
+		void set_tag(unsigned int tag);
 
-	// set layer
-	void set_layer(unsigned int layer);
+		// get global position
+		gioVec2 get_global_position();
 
-	// set tag
-	void set_tag(unsigned int tag);
+		// get local position
+		gioVec2 get_local_position();
 
-	// get global position
-	gioVec2 get_global_position();
+		// get size
+		gioVec2 get_size();
 
-	// get local position
-	gioVec2 get_local_position();
+		// get rotation degrees
+		gioVec2 get_rotation_degrees();
 
-	// get size
-	gioVec2 get_size();
-
-	// get rotation degrees
-	gioVec2 get_rotation_degrees();
-
-	// get rotation radians
-	gioVec2 get_rotation_radians();
-
-	// constructor
-	Entity();
-
-	// destructor
-	~Entity();
-
+		// get rotation radians
+		gioVec2 get_rotation_radians();
 };
 
 // Component class
 class Component
 {
 	private:
-	unsigned int id;
-	unsigned int entity_id;
+		unsigned int id;
+		unsigned int entity_id;
 
 	public:
-	// ready
-	virtual void ready();
+		std::string name;
 
-	// update
-	virtual void update();
+		// get id
+		unsigned int get_id();
 
-	// render
-	virtual void render();
+		// get entity id
+		unsigned int get_entity_id();
 
-	// get id
-	unsigned int get_id();
+		// set id
+		void set_id(unsigned int id);
 
-	// get entity id
-	unsigned int get_entity_id();
-
-	// set id
-	void set_id(unsigned int id);
-
-	// set entity id
-	void set_entity_id(unsigned int entity_id);
-
-	// constructor
-	Component();
-
-	// destructor
-	~Component();
-
+		// set entity id
+		void set_entity_id(unsigned int entity_id);
 };
 
-std::vector<Component*> components; // vector of components
-std::vector<Entity*> entities; // vector of entities
+static std::vector<Component*> components; // vector of components
+static std::vector<Entity*> entities; // vector of entities

@@ -1,19 +1,11 @@
 #pragma once
 
-// opengl code to draw a quad to the screen
+// including entity
+#include "core/entity.h"
+// including vec4
+#include "core/types/vec4.h"
 
-#include <iostream>
-
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h>
-
-#include <iostream>
-
-/*
-	Today we're making an animation system
-*/
-
-class quad_object
+class Sprite : Entity
 {
 public:
 	unsigned int VAO, VBO, EBO;
@@ -120,17 +112,7 @@ private:
 	}
 
 public:
-	void DebugPrintVBO()
-	{
-		std::cout << "VBO: " << VBO << std::endl;
-	}
-
-	void change_texture(const char* path)
-	{
-		create_texture(path);
-	}
-
-	quad_object(const char* texture_path, const char* vertex, const char* fragment, gioVec2 size, gioVec4 start_animationData)
+	Sprite(const char* texture_path, gioVec2 size, gioVec4 start_animationData)
 	{
 		animationData = start_animationData;
 		deltaSecond = 0;
@@ -154,14 +136,14 @@ public:
 			1, 2, 3  // second triangle
 		};
 
-		quad_shader = new Shader(vertex, fragment);
+		quad_shader = new Shader("shaders/quad.vs", "shaders/quad.fs");
 
 		create_VAO();
 		create_VBO(vertices, sizeof(vertices));
 		create_EBO(indices, sizeof(indices));
 		set_vertex_attributes();
 		create_texture(texture_path);
-		use_shader(vertex, fragment);
+		use_shader("shaders/quad.vs", "shaders/quad.fs");
 
 		AddSetting("isPlaying", new bool(false));
 		AddSetting("animationFPS", new int(animationFPS));
@@ -170,7 +152,7 @@ public:
 		AddSetting("frame", frame);
 	}
 
-	void draw(float deltaTime)
+	void draw()
 	{
 		// bind textures on corresponding texture units
 		glActiveTexture(GL_TEXTURE0);
@@ -191,13 +173,16 @@ public:
 
 		// use shader
 		quad_shader->use();
-		
+
 		unsigned int positionLoc = glGetUniformLocation(quad_shader->ID, "position");
 		glUniform2f(positionLoc, position.x, position.y);
 
 		// render container
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+		// Getting deltaTime
+		float deltaTime = *(float*)GetSetting("deltaTime");
 
 		deltaSecond += deltaTime;
 

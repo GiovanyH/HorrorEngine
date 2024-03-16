@@ -146,5 +146,11 @@
     <ClInclude Include="core\entity.h">
       <Filter>Arquivos de Cabeçalho\core</Filter>
     </ClInclude>
+    <ClInclude Include="editor\sprite.h">
+      <Filter>Arquivos de Cabeçalho\editor</Filter>
+    </ClInclude>
+    <ClInclude Include="draw_texture.h">
+      <Filter>Arquivos de Cabeçalho\render</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

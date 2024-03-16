@@ -25,11 +25,15 @@
 /* Used to draw 2D Sprites */
 #include "render/draw_quad.h"
 
+#include "editor/sprite.h"
+
 
 /* Audio */
 // ---------------------
 #include <AL/al.h>
 #include <AL/alc.h>
+
+#include <glfw/glfw3.h>
 
  /* This file contains an example for playing a sound buffer. */
 #include "core/audio/audio.h"
@@ -51,6 +55,8 @@
 // w - end framey
 gioVec4 idle_state = gioVec4(0.0f, 0.0f, 5.0f, 5.0f);
 
+std::vector<Sprite*> sprites;
+
 void Init()
 {
 	// Initialize OpenGL
@@ -63,9 +69,10 @@ void Init()
 	core::InitFileSystem();
 	core::LoadEngineConfig();
 
-	// Making an entity
-	quad_object *quad = new quad_object("PlayerIdle.png", "shaders/quad.vs", "shaders/quad.fs", gioVec2(8.0f, 8.0f), idle_state);
-	AddSetting("DebugQuad", quad);
+	Sprite* sprite = new Sprite("PlayerIdle.png", gioVec2(8.0f, 8.0f), idle_state);
+	Sprite* sprite2 = new Sprite("PlayerRun.png", gioVec2(8.0f, 1.0f), idle_state);
+	sprites.push_back(sprite);
+	sprites.push_back(sprite2);
 }
 
 void Update()
@@ -105,9 +112,6 @@ int main(int argc, char** argv)
 	gioInput *input = new gioInput();
 	AddSetting("OS-input", input);
 
-	// Getting the entity
-	quad_object *quad = (quad_object*)EngineConfig["DebugQuad"];
-
 	// Getting OpenGL clear_color
 	gioVec4* clear_color = (gioVec4*)GetSetting("OpenGL-clear_color");
 
@@ -117,7 +121,12 @@ int main(int argc, char** argv)
 		glClearColor(clear_color->x * clear_color->w, clear_color->y * clear_color->w, clear_color->z * clear_color->w, clear_color->w);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		quad->draw(*(float*)GetSetting("deltaTime"));
+		// Update all quads
+		for (int i = 0; i < sprites.size(); i++) {
+			sprites[i]->draw();
+		}
+
+		Sprite *sprite = sprites[0];
 
 		// Render
 		Render();
@@ -126,23 +135,23 @@ int main(int argc, char** argv)
 		Update();
 
 		if (GetKeyboardInput("GioLeft") == input->key) {
-			quad->position.x -= 1 * (*(float*)GetSetting("deltaTime"));
-			quad->change_state(1, gioVec4(0.0f, 5.0f, 1.0f, 1.0f));
+			sprite->position.x -= 1 * (*(float*)GetSetting("deltaTime"));
+			sprite->change_state(1, gioVec4(0.0f, 5.0f, 1.0f, 1.0f));
 		}
 		else if (GetKeyboardInput("GioRight") == input->key) {
-			quad->position.x += 1 * (*(float*)GetSetting("deltaTime"));
-			quad->change_state(2, gioVec4(0.0f, 5.0f, 2.0f, 2.0f));
+			sprite->position.x += 1 * (*(float*)GetSetting("deltaTime"));
+			sprite->change_state(2, gioVec4(0.0f, 5.0f, 2.0f, 2.0f));
 		}
 		else if (GetKeyboardInput("GioUp") == input->key) {
-			quad->position.y += 1 * (*(float*)GetSetting("deltaTime"));
-			quad->change_state(3, gioVec4(0.0f, 5.0f, 3.0f, 3.0f));
+			sprite->position.y += 1 * (*(float*)GetSetting("deltaTime"));
+			sprite->change_state(3, gioVec4(0.0f, 5.0f, 3.0f, 3.0f));
 		}
 		else if (GetKeyboardInput("GioDown") == input->key) {
-			quad->position.y -= 1 * (*(float*)GetSetting("deltaTime"));
-			quad->change_state(4, gioVec4(0.0f, 5.0f, 4.0f, 4.0f));
+			sprite->position.y -= 1 * (*(float*)GetSetting("deltaTime"));
+			sprite->change_state(4, gioVec4(0.0f, 5.0f, 4.0f, 4.0f));
 		}
 		else {
-			quad->change_state(5, gioVec4(0.0f, 0.0f, quad->animationData.z + 4.0f, quad->animationData.w + 4.0f));
+			sprite->change_state(5, gioVec4(0.0f, 0.0f, sprite->animationData.z + 4.0f, sprite->animationData.w + 4.0f));
 		}
 
 		// Add the input to the settings
@@ -156,7 +165,6 @@ int main(int argc, char** argv)
 		window->PollEvents(input);
 	}
 	CleanUp();
-	quad->delete_quad();
 	core::UpdateEngineConfig();
 
 

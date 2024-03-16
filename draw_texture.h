@@ -13,10 +13,12 @@
 	Today we're making an animation system
 */
 
-class quad_object
+
+// TODO: use this
+class texture_object
 {
 public:
-	unsigned int VAO, VBO, EBO;
+	unsigned int VAO;
 	unsigned int texture;
 
 	unsigned int framex;
@@ -27,24 +29,12 @@ public:
 	unsigned int tex_sizex;
 	unsigned int tex_sizey;
 
-	float deltaSecond;
-
 	gioVec2 position;
-
-	int state;
-
-	// Animation Data Structure:
-	// x - start framex
-	// y - end framex
-	// z - start framey
-	// w - end framey
-	gioVec4 animationData;
-
-	Shader* quad_shader;
 private:
-	bool isPlaying;
 	bool isFlipped;
-	unsigned int animationFPS;
+
+	unsigned int VBO, EBO;
+	Shader* quad_shader;
 
 	// creating VAO
 	void create_VAO()
@@ -120,20 +110,13 @@ private:
 	}
 
 public:
-	void DebugPrintVBO()
-	{
-		std::cout << "VBO: " << VBO << std::endl;
-	}
-
 	void change_texture(const char* path)
 	{
 		create_texture(path);
 	}
 
-	quad_object(const char* texture_path, const char* vertex, const char* fragment, gioVec2 size, gioVec4 start_animationData)
+	texture_object(const char* texture_path, const char* vertex, const char* fragment, gioVec2 size)
 	{
-		animationData = start_animationData;
-		deltaSecond = 0;
 		framex = animationData.x;
 		framey = animationData.z;
 
@@ -163,9 +146,6 @@ public:
 		create_texture(texture_path);
 		use_shader(vertex, fragment);
 
-		AddSetting("isPlaying", new bool(false));
-		AddSetting("animationFPS", new int(animationFPS));
-
 		gioVec2* frame = new gioVec2(framex, framey);
 		AddSetting("frame", frame);
 	}
@@ -191,64 +171,19 @@ public:
 
 		// use shader
 		quad_shader->use();
-		
+
 		unsigned int positionLoc = glGetUniformLocation(quad_shader->ID, "position");
 		glUniform2f(positionLoc, position.x, position.y);
 
 		// render container
 		glBindVertexArray(VAO);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-		deltaSecond += deltaTime;
-
-		if (((deltaSecond * animationFPS) >= 1.0f) && isPlaying) {
-			framex++;
-			deltaSecond = 0.0f;
-		}
-
-		// Play based on animation here
-		// Animation Data Structure:
-		// x - start framex
-		// y - end framex
-		// z - start framey
-		// w - end framey
-
-		// if framex >= end framex
-		if (framex > animationData.y) {
-			framey++;
-			// framex = start framex
-			framex = animationData.x;
-		}
-		// if framey >= end framey
-		if (framey > animationData.w) {
-			// framey = start framey
-			framey = animationData.z;
-			// framex = start framex
-			framex = animationData.x;
-		}
-
-		std::cout << "Frames: " << framex << " " << framey << std::endl;
-
-		isPlaying = *(bool*)GetSetting("isPlaying");
-		animationFPS = *(int*)GetSetting("animationFPS");
 	}
 
-	void delete_quad()
+	void delete_object()
 	{
 		glDeleteVertexArrays(1, &VAO);
 		glDeleteBuffers(1, &VBO);
 		glDeleteBuffers(1, &EBO);
-	}
-
-	void change_state(int new_state, gioVec4 new_animationData)
-	{
-		if (new_state != state)
-		{
-			animationData = new_animationData;
-			state = new_state;
-
-			framex = animationData.x;
-			framey = animationData.z;
-		}
 	}
 };
